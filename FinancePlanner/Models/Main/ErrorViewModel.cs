@@ -1,6 +1,4 @@
-using System;
-
-namespace FinancePlanner.Models
+namespace FinancePlanner.Models.Main
 {
     public class ErrorViewModel
     {

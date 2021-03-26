@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FinancePlanner.Models;
+using FinancePlanner.Models.Main;
 
 namespace FinancePlanner.Controllers
 {
