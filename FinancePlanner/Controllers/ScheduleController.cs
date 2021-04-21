@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,13 +8,13 @@ using Microsoft.Extensions.Logging;
 using FinancePlanner.Models;
 using FinancePlanner.Models.Main;
 
-namespace FinancePlanner.Controllers
+namespace Schedule.Controllers
 {
-    public class HomeController : Controller
+    public class ScheduleController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ScheduleController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ScheduleController(ILogger<ScheduleController> logger)
         {
             _logger = logger;
         }
@@ -27,7 +27,7 @@ namespace FinancePlanner.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
