@@ -2,26 +2,28 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -29,26 +31,28 @@ a {
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
@@ -65,12 +69,13 @@ body {
     margin-bottom: 60px;
     background-color: #f2f2f2;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 /* Main
@@ -107,7 +112,6 @@ body {
 }
 
 
-
 .tab-content {
     min-height: 768px;
     width: 100%;
@@ -135,7 +139,7 @@ body {
 
 .card-container {
     display: flex;
-    
+
 }
 
 .card {
@@ -169,7 +173,7 @@ body {
 -------------------------------------------------- */
 
 .warning {
-    color: rgb(62,148,236);
+    color: rgb(62, 148, 236);
 }
 
 .st_viewport {
@@ -183,7 +187,7 @@ body {
 
 [data-table_id="2"] {
     background-color: rgb(235 235 235);
-  
+
 }
 
 [data-table_id="3"] {
@@ -220,22 +224,24 @@ pre {
 
 /** Sticky table styles **/
 .st_viewport {
-    background-color: rgb(62,148,236);
-    color: rgb(27,30,36);
+    background-color: rgb(62, 148, 236);
+    color: rgb(27, 30, 36);
     margin: 20px 0;
 }
+
 /* ###  Table wrap */
 .st_wrap_table {
     border-radius: 10px;
 }
+
 /* ##   header */
 .st_table_header {
     position: -webkit-sticky;
     position: sticky;
     top: 0px;
     z-index: 1;
-    background-color: rgb(27,30,36);
-    color: rgb(220,220,220);
+    background-color: rgb(27, 30, 36);
+    color: rgb(220, 220, 220);
     border-radius: 10px;
 }
 
@@ -246,7 +252,7 @@ pre {
 }
 
 .st_table_header .st_row {
-    color: rgba(220,220,220, .7);
+    color: rgba(220, 220, 220, .7);
 }
 
 .st_table_header .st_column {
@@ -265,6 +271,7 @@ pre {
     -ms-flex-direction: column;
     flex-direction: column;
 }
+
 /* #   row */
 .st_row {
     display: -webkit-box;
@@ -275,8 +282,9 @@ pre {
 }
 
 .st_table .st_row:nth-child(even) {
-    background-color: rgba(0,0,0, .1)
+    background-color: rgba(0, 0, 0, .1)
 }
+
 /* #   column */
 .st_column {
     padding: 10px 20px;

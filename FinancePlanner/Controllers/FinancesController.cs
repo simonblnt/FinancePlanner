@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinancePlanner.Controllers
 {
-    public class TrackerController : Controller
+    public class FinancesController : Controller
     {
         // GET
         public IActionResult Index()
