@@ -1,12 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancePlanner.Models.UserSpecific
 {
     public class Stat
     {
-        private int Id { get; set; }
-        private int UserId { get; set; }
-        private int CategoryId { get; set; }
-        private int ValueTypeId { get; set; }
+        [Key] public int Id { get; set; }
+        public int UserId { get; set; }
+        public int CategoryId { get; set; }
+        public int ValueTypeId { get; set; }
     }
 }

@@ -1,17 +1,19 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancePlanner.Models.Main
 {
     public class User
     {
-        private int Id { get; set; }
-        private string UserName { get; set; }
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private string Password { get; set; }
-        private int PaidLeavesTotal { get; set; }
-        private int PaidLeavesUser { get; set; }
-        private string Email { get; set; }
-        private DateTime RegisteredAt { get; set; } 
+        [Key] public int Id { get; set; }
+
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Password { get; set; }
+        public int PaidLeavesTotal { get; set; }
+        public int PaidLeavesUser { get; set; }
+        public string Email { get; set; }
+        public DateTime RegisteredAt { get; set; } 
     }
 }

@@ -1,16 +1,17 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancePlanner.Models.UserSpecific
 {
     public class Note
     {
-        private int Id { get; set; }
-        private int UserId { get; set; }
-        private string Title { get; set; }
-        private string Description { get; set; }
-        private DateTime DateAdded { get; set; }
-        private int EventId { get; set; }
-        private int FinancialEventId { get; set; }
-        private int ContactId { get; set; }
+        [Key] public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime DateAdded { get; set; }
+        public int EventId { get; set; }
+        public int FinancialEventId { get; set; }
+        public int ContactId { get; set; }
     }
 }

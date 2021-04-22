@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace FinancePlanner.Models.Main
 {
-    public class TaskType
+    public class EventType
     {
-        private int Id { get; set; }
-        private string Name { get; set; }
-        private bool ForcedDaylong { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool ForcedDaylong { get; set; }
     }
 }

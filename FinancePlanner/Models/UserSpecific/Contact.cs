@@ -1,13 +1,15 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace FinancePlanner.Models.UserSpecific
 {
     public class Contact
     {
-        private int Id { get; set; }
-        private int UserId { get; set; }
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private int CountryId { get; set; }
-        private string Company { get; set; }
-        private string Position { get; set; }
+        [Key] public int Id { get; set; }
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int CountryId { get; set; }
+        public string Company { get; set; }
+        public string Position { get; set; }
     }
 }

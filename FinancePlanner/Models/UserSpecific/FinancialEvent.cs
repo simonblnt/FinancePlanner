@@ -1,15 +1,16 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancePlanner.Models.UserSpecific
 {
     public class FinancialEvent
     {
-        private int Id { get; set; }
-        private int UserId { get; set; }
-        private string Subject { get; set; }
-        private int Amount { get; set; }
-        private int CurrencyId { get; set; }
-        private DateTime DateAdded { get; set; }
-        private bool Recurring { get; set; }
+        [Key] public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Subject { get; set; }
+        public int Amount { get; set; }
+        public int CurrencyId { get; set; }
+        public DateTime DateAdded { get; set; }
+        public bool Recurring { get; set; }
     }
 }

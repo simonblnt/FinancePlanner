@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace FinancePlanner.Models
 {
     public class Country
     {
-        private int Id { get; set; }
-        private string Name { get; set; }
+        [Key] public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
