@@ -4,7 +4,11 @@ for details on configuring this project to bundle and minify static web assets. 
 a.navbar-brand {
     white-space: normal;
     text-align: center;
-    word-break: break-all;
+    word-break: normal;
+}
+
+.navbar>.container{
+    justify-content: flex-end;
 }
 
 /* Provide sufficient contrast against white background */
@@ -125,6 +129,7 @@ body {
 
 .container {
     margin: 5px;
+    
 }
 
 .title-string {
