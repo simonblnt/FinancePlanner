@@ -7,7 +7,11 @@ a.navbar-brand {
     word-break: normal;
 }
 
-.navbar>.container{
+.navbar>.menu-bar{
+    justify-content: space-between;
+}
+
+.navbar>.login-bar>ul{
     justify-content: flex-end;
 }
 
