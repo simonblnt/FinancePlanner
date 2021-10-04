@@ -1,5 +1,6 @@
 using System;
 using FinancePlanner.Database;
+using FinancePlanner.Models;
 using FinancePlanner.Models.Main;
 using Microsoft.AspNetCore.Mvc;
 

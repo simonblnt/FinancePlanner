@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using FinancePlanner.Database;
+using FinancePlanner.Models;
 using FinancePlanner.Models.Main;
 using Microsoft.AspNetCore.Mvc;
 

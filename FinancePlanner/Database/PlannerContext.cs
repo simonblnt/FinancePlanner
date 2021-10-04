@@ -1,7 +1,6 @@
 using System;
 using FinancePlanner.Models;
 using FinancePlanner.Models.Main;
-using FinancePlanner.Models.UserSpecific;
 using Microsoft.EntityFrameworkCore;  
 
 namespace FinancePlanner.Database

@@ -2,9 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FinancePlanner.Models
 {
-    public class Country
+    public class EventCategory
     {
         [Key] public int Id { get; set; }
-        public string Name { get; set; }
+        public int Title { get; set; }
+        public bool IsDayLong { get; set; }
     }
 }

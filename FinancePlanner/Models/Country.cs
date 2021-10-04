@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FinancePlanner.Models.Main
+namespace FinancePlanner.Models
 {
-    public class Currency
+    public class Country
     {
         [Key] public int Id { get; set; }
         public string Name { get; set; }
+        public string ContinentName { get; set; }
     }
 }
