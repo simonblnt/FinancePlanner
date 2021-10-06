@@ -45,7 +45,7 @@ namespace FinancePlanner.Controllers
 
         private bool CheckLogin(string username, string password)
         {
-            var user = _context.Users.Where(u => u.UserName == username && u.Password == password).FirstOrDefault();
+            var user = _context.Users.FirstOrDefault(u => u.UserName == username && u.Password == password);
 
             if (user != null)
             {
