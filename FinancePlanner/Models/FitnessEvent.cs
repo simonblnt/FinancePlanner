@@ -7,6 +7,6 @@ namespace FinancePlanner.Models
         // ** All formats are in SI **
         [Key] public int Id { get; set; }
         public int Distance { get; set; }       // meters
-        public string Duration { get; set; }    // seconds
+        public int Duration { get; set; }    // seconds
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FinancePlanner.Models
 {
@@ -16,5 +18,6 @@ namespace FinancePlanner.Models
         public DateTime EndDate { get; set; }
         public bool IsRecurring { get; set; }
         public DateTime CreatedAt { get; set; }
+        
     }
 }
