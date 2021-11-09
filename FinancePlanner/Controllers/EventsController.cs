@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FinancePlanner.Database;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +28,10 @@ namespace Events.Controllers
         
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             EventViewModel eventViewModel = new EventViewModel
             {
-                Events = await _context.Events.ToListAsync(),
+                Events = await _context.Events.Where(x => x.UserId == userId).ToListAsync(),
                 EventCategories = await _context.EventCategories.ToListAsync(),
             };
             
@@ -49,6 +51,7 @@ namespace Events.Controllers
         public async Task<IActionResult> Create([Bind("Title,Description,StartDate,EndDate,EventCategoryId")] Event newEvent, int financialAmount, int fitnessDistance, int fitnessDuration)
         {
             newEvent.CreatedAt = DateTime.Now;
+            newEvent.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (ModelState.IsValid)
             {
                 if (financialAmount != 0)
@@ -76,25 +79,29 @@ namespace Events.Controllers
             return View(newEvent);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            
+
             Event _event = await _context.Events.FindAsync(id);
             if (_event == null)
             {
                 return NotFound();
             }
+            
+            var eventCategories = new SelectList(_context.EventCategories.ToList(),"Id", "CategoryTitle");
 
+            ViewBag.EventCategoryList = eventCategories;
             return View(_event);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title")] Event _event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Title,Description,StartDate,EndDate,EventCategoryId")] Event _event, int financialAmount, int fitnessDistance, int fitnessDuration)
         {
             if (id != _event.Id)
             {
@@ -119,13 +126,10 @@ namespace Events.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(_event);
         }
-
-        
-        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

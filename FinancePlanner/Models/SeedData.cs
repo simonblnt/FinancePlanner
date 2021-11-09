@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using FinancePlanner.Database;
+using Microsoft.AspNetCore.Identity;
 using Npgsql;
 
 namespace FinancePlanner.Models
@@ -21,16 +22,9 @@ namespace FinancePlanner.Models
                     return;   // DB has been seeded
                 }
                 context.Users.AddRange(
-                    new User
+                    new IdentityUser
                     {
-                        Id = 0,
                         Email = "simon.blnt93@gmail.com",
-                        FirstName = "admin",
-                        LastName = "user",
-                        PaidLeavesTotal = 0,
-                        PaidLeavesUser = 0,
-                        Password = "adminadmin",
-                        RegisteredAt = DateTime.Now,
                         UserName = "admin"
                     }
                 );
@@ -103,7 +97,7 @@ namespace FinancePlanner.Models
                     new Event
                     {
                         Id = 0,
-                        UserId = 0,
+                        UserId = "0",
                         EventCategoryId = 0,
                         Title = "Test event",
                         Description = "Test description",

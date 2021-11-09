@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Plan>
+﻿@model FinancePlanner.ViewModels.PlanningViewModel
 
 @{
     ViewData["Title"] = "Planning";
@@ -12,96 +12,41 @@
 
 <div class="content">
     <div id="overview" class="tab-content">
-        <h3 class="title-string">Fitness</h3>
+        
+        <a asp-controller="Planning" asp-action="Create">Create</a>
+        
+        @foreach (var category in Model.EventCategories)
+        {
+            <h3>
+                @Html.DisplayFor(modelItem => category.CategoryTitle)
+            </h3>
+            
+            <div class="card-container">
+                @{
+                    var plans = Model.Plans.Where(p => p.EventCategoryId == category.Id);
+                }  
+                @foreach (var plan in plans)
+                {
 
-        <div class="card-container">
-            <div class="card">
-                <h5 class="card-title">Run 2 kms a day for a month</h5>
-
-                <ul>
-                    <li>Days completed: 5</li>
-                    <li>Days failed:  3</li>
-                    <li>Days succeded: 2</li>
-                    <li>Average kms/day: 1.8</li>
-                    <li>Least km in a day: 1.1</li>
-                    <li>Most kms in a day: 2.3</li>
-                </ul>
+                    <div class="card">
+                        <h5>
+                            @Html.DisplayFor(modelItem => plan.Title)
+                        </h5>
+                        <ul>
+                            @{ 
+                                var goals = Model.Goals.Where(p => p.PlanId == plan.Id);
+                            }  
+                            @foreach (var goal in goals)
+                            {
+                                <li>
+                                    @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             </div>
-            <div class="card">
-                <h5 class="card-title">Eat < 2000 kcal a day for a month</h5>
-
-                <ul>
-                    <li>Days completed: 5</li>
-                    <li>Days failed:  5</li>
-                    <li>Days succeded: 0</li>
-                    <li>Average kcal/day: 4000</li>
-                    <li>Least kcal/day: 3000</li>
-                    <li>Most kcal/day: 5000</li>
-                </ul>
-            </div>
-        </div>
-
-        <h3 class="title-string">Finances</h3>
-        <div class="card-container">
-            <div class="card">
-                <h5 class="card-title">Save > 100$ in April</h5>
-
-                <ul>
-                    <li>Average spending: 10$</li>
-                    <li>Target spending/day: 1.6$</li>
-                    <li>Least spending: 1.1$</li>
-                    <li>Most spending: 2.3$</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h5 class="card-title">Save >= 300$  in 2021</h5>
-
-                <ul>
-                    <li>Average savings: 10$</li>
-                    <li>Target savings/day: 1.6$</li>
-                    <li>Total savings: 30$</li>
-                    <li>Least savings: 8$</li>
-                    <li>Most savings: 12$</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="categories" class="tab-content">
-        <div class="catogory-list">
-            <h5 class="category-item">Fitness</h5>
-
-            <div class="category-stats">
-                <ul>
-                    <li>Days completed</li>
-                    <li>Days failed</li>
-                    <li>Days succeded</li>
-                    <li>Average kms/day</li>
-                    <li>Least km in a day</li>
-                    <li>Most kms in a day</li>
-                    <li>Average kcal/day</li>
-                    <li>Least kcal/day</li>
-                    <li>Most kcal/day</li>
-                </ul>
-            </div>
-
-
-            <h5 class="category-item">Finances</h5>
-
-            <div class="category-stats">
-                <ul>
-                    <li>Average spending</li>
-                    <li>Target spending/day</li>
-                    <li>Least spending</li>
-                    <li>Average savings</li>
-                    <li>Target savings/day</li>
-                    <li>Total savings</li>
-                    <li>Least savings</li>
-                    <li>Most savings</li>
-                    <li>Most spending</li>
-                </ul>
-            </div>
-        </div>
+        }
     </div>
 </div>  
 

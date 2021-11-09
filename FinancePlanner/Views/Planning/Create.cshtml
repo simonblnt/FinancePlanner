@@ -1,0 +1,58 @@
+@model FinancePlanner.ViewModels.PlanningViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+<div>
+    <h1>Create plan</h1>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select asp-for="EventCategoryId"
+                            class="form-group"
+                            asp-items="@ViewBag.EventCategoryList">
+                    </select>
+                    <span asp-validation-for="EventCategoryId" class="text-danger"></span>
+                </div>
+                
+                <a href="#" id="add">Add Goal</a>
+                
+                <div id="goal-list">
+                    @Html.EditorFor(f => f.Goals)    
+                </div>
+                
+                
+                
+                @* <div class="form-group"> *@
+                @*     <label asp-for="GoalTitle" class="control-label"></label> *@
+                @*     <input asp-for="GoalTitle" class="form-control"/> *@
+                @*     <span asp-validation-for="GoalTitle" class="text-danger"></span> *@
+                @* </div> *@
+                @* <div class="form-group"> *@
+                @*     <label asp-for="NumericalTarget" class="control-label"></label> *@
+                @*     <input asp-for="NumericalTarget" class="form-control"/> *@
+                @*     <span asp-validation-for="NumericalTarget" class="text-danger"></span> *@
+                @* </div> *@
+                @* <div class="form-group"> *@
+                @*     <label asp-for="NumericalProgress" class="control-label"></label> *@
+                @*     <input asp-for="NumericalProgress" class="form-control"/> *@
+                @*     <span asp-validation-for="NumericalProgress" class="text-danger"></span> *@
+                @* </div> *@
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

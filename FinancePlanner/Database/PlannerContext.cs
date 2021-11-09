@@ -1,11 +1,13 @@
 using System;
 using FinancePlanner.Models;
 using FinancePlanner.Models.Main;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;  
 
 namespace FinancePlanner.Database
 {
-    public class PlannerContext : DbContext
+    public class PlannerContext : IdentityDbContext
     {
         public PlannerContext(DbContextOptions<PlannerContext> options) : base(options)
         {
@@ -23,6 +25,6 @@ namespace FinancePlanner.Database
         public DbSet<Note> Notes { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<Report> Reports { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<IdentityUser> Users { get; set; }
     }
 }

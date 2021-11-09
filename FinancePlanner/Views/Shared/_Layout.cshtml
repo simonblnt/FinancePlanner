@@ -1,4 +1,4 @@
-﻿@using System.Reflection
+﻿@inject SignInManager<IdentityUser> SignInManager;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,8 +52,22 @@
         </div>
         <div class="container login-bar">
             <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="SignUp" asp-action="Index">Sign Up</a></li>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <button type="submit" class="nav-link btn btn-link py-0" style="width: auto">
+                                Logout @User.Identity?.Name
+                            </button>
+                        </form>
+                    </li>
+                } 
+                else
+                {
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></li>        
+                }
+                
             </ul>
         </div>
     </nav>

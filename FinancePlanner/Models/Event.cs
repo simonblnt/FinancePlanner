@@ -8,7 +8,7 @@ namespace FinancePlanner.Models
     public class Event
     {
         [Key] public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int FinancialEventId { get; set; }
         public int FitnessEventId { get; set; }
         public int EventCategoryId { get; set; }

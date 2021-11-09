@@ -17,3 +17,16 @@ function changePlanningTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+$(function () {
+
+    $("#add").click(function (e) {
+        e.preventDefault();
+        var i = $(".items").length;
+        var n = '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
+            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalTarget" />' +
+            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />';
+        $("#goal-list").append(n);
+    });
+
+});
