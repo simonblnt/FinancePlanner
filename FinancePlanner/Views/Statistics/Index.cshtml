@@ -1,6 +1,13 @@
 @{
-    ViewData["Title"] = "Statistics";
+    ViewData["Title"] = "Home Page";
 }
 
+<div><canvas id="lineChart"></canvas></div>
 
-<h2>Statistics</h2>
+@{var chart = (ChartJSCore.Models.Chart)ViewData["chart"]; }
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        @Html.Raw(chart.CreateChartCode("lineChart"));
+    </script>

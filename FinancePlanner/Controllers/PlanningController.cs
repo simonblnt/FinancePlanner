@@ -97,12 +97,35 @@ namespace FinancePlanner.Controllers
             }
             return View(newPlanModel);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var plan = await _context.Plans.FindAsync(id);
+            if (plan == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var goals = await _context.Goals.Where(x => x.PlanId == plan.Id).ToListAsync();
+                if (goals.Count > 0)
+                {
+                    _context.Goals.RemoveRange(goals);
+                }
+
+                _context.Plans.Remove(plan);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
 
         
     }

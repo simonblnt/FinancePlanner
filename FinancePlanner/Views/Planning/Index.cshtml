@@ -27,15 +27,19 @@
                 }  
                 @foreach (var plan in plans)
                 {
-
+                      
                     <div class="card">
+                        <form asp-action="Delete">
+                            <button type="submit" asp-action="Delete" asp-route-id="@plan.Id" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>    
+                        </form>
+                        
                         <h5>
                             @Html.DisplayFor(modelItem => plan.Title)
                         </h5>
                         <ul>
-                            @{ 
+                            @{
                                 var goals = Model.Goals.Where(p => p.PlanId == plan.Id);
-                            }  
+                            }
                             @foreach (var goal in goals)
                             {
                                 <li>
