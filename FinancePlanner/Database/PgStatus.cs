@@ -7,10 +7,13 @@ namespace FinancePlanner.Database
     {
         public static void GetVersion()
         {
-            var cs = "Host=localhost;" +
-                     "Username=postgres;" +
-                     "Password=postgres;" +
-                     "Database=finance_planner";
+            var cs = "Host=plannerdbserver.database.windows.net;" +
+                     "Username=simonblnt;" +
+                     "Password=G3tcha'pull;" +
+                     "Database=Planner_db";
+
+
+            
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
