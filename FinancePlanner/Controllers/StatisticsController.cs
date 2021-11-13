@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ChartJSCore.Helpers;
 using ChartJSCore.Models;
-using Events.Controllers;
 using FinancePlanner.Database;
 using FinancePlanner.ViewModels;
 using Microsoft.AspNetCore.Mvc;

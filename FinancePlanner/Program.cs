@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Azure.Identity;
 
 namespace FinancePlanner
 {
@@ -39,6 +40,11 @@ namespace FinancePlanner
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+.ConfigureAppConfiguration((context, config) =>
+{
+var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+})
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

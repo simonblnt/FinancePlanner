@@ -15,5 +15,10 @@
     <Deterministic>false</Deterministic>
     <_SelectedScaffolderID>MvcControllerWithActionsScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Common</_SelectedScaffolderCategoryPath>
+    <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>FinancePlanner20211113031239 - Zip Deploy</NameOfLastUsedPublishProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

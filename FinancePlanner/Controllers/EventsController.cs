@@ -1,19 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FinancePlanner.Database;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using FinancePlanner.Models;
 using FinancePlanner.Models.Main;
 using FinancePlanner.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace Events.Controllers
+namespace FinancePlanner.Controllers
 {
     public class EventsController : Controller
     {
