@@ -16,7 +16,7 @@
     <_SelectedScaffolderID>MvcControllerWithActionsScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Common</_SelectedScaffolderCategoryPath>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\RiderProjects\FinancePlanner\FinancePlanner\Properties\PublishProfiles\FinancePlanner20211113031239 - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\RiderProjects\FinancePlanner\.github\workflows\master_plannerwebapp.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
