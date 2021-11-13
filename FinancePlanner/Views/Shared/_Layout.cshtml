@@ -24,28 +24,19 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Tracker" asp-action="Index">Tracker</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Planning" asp-action="Index">Planning</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Schedule" asp-action="Index">Schedule</a>
-                    </li>
-                    <li class="nav-item">
+                    @*<li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Finances" asp-action="Index">Finances</a>
-                    </li>
-                    <li class="nav-item">
+                    </li>*@
+                    @*<li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
-                    </li>
+                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
                     </li>
                 </ul>
             </div>
@@ -72,7 +63,7 @@
         </div>
     </nav>
 </header>
-<div class="container">
+<div class="container content">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

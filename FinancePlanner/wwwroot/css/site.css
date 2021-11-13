@@ -129,10 +129,14 @@ body {
 
 .content {
     background-color: #ffffff;
+    box-shadow: 2px 0px 20px 0px;
+    padding: 32px;
+    border-radius: 12px;
+    margin: auto;
+    width: 100%;
 }
 
 .container {
-    margin: 5px;
     
 }
 
@@ -230,6 +234,115 @@ body {
 pre {
     overflow: auto;
 }
+
+
+.title-table {
+    margin: 0;
+    padding: 2px 15px 2px 15px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 5px solid var(--secondary-bg-color);
+    border-radius: 5pt;
+}
+
+    .title-table h1 {
+        margin-right: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 15px;
+    }
+
+    .title-table a {
+        height: auto;
+        width: fit-content;
+        margin-left: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+        align-self: center;
+        outline: none;
+        background: transparent;
+        padding: 15px;
+        outline: none;
+        text-align: center;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        border: 2px solid var(--secondary-bg-color);
+        border-radius: 20px;
+        display: inline-block;
+        transition: 0.75s;
+    }
+
+        .title-table a:hover {
+            background: #4cd137;
+        }
+
+    .title-table i {
+        color: #4cd137;
+        margin: 0;
+        padding-right: 10px;
+        transition: 0.75s;
+    }
+
+    .title-table a:hover i {
+        color: var(--secondary-bg-color);
+    }
+
+.content-table {
+    padding: 2px 15px 2px 15px;
+}
+
+    .content-table table {
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: 0.9em;
+        min-width: 90%;
+        width: 100%;
+        border-radius: 10px 10px 0 0;
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .content-table table thead tr {
+            background-color: var(--secondary-bg-color);
+            color: var(--main-font-color);
+            font-weight: bold;
+        }
+
+    .content-table th,
+    .content-table td {
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        transition: 0.75s;
+    }
+
+        .content-table tbody tr:hover {
+            background-color: #c5c5c5;
+        }
+
+    .content-table td i {
+        color: green;
+        padding: 10%;
+        transition: 0.15s;
+    }
+
+        .content-table td i:hover {
+            text-shadow: 0px 0px 15px black;
+        }
+
+    .content-table td .fa-pencil-alt {
+        color: #e19526;
+    }
+
+    .content-table td .fa-trash-alt {
+        color: #751500;
+    }
+
+
+
+
 
 /** Sticky table styles **/
 .st_viewport {

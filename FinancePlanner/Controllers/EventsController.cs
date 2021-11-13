@@ -79,6 +79,27 @@ namespace FinancePlanner.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> CreateEventCategory()
+        {
+            var eventCategories = new SelectList(_context.EventCategories.ToList(), "Id", "CategoryTitle");
+
+            ViewBag.EventCategoryList = eventCategories;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEventCategory([Bind("CategoryTitle, IsDayLong")] EventCategory newEventCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                await _context.AddAsync(newEventCategory);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(newEventCategory);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
