@@ -18,7 +18,7 @@ namespace FinancePlanner
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            PgStatus.GetVersion();
+            //PgStatus.GetVersion();
             
             using (var scope = host.Services.CreateScope())
             {
