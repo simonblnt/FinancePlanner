@@ -37,7 +37,7 @@ namespace FinancePlanner
             services.AddDbContext<PlannerContext>(options =>
             {
                 if (options == null) throw new ArgumentNullException(nameof(options));
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<PlannerContext>();
