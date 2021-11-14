@@ -11,7 +11,7 @@ namespace FinancePlanner.ViewModels
         public List<GoalType> GoalTypes { get; set; }
         public List<EventCategory> EventCategories { get; set; }
         public List<GoalStatus> GoalStatuses { get; set; }
-        
+
         public List<Event> Events { get; set; }
         
         // Plan

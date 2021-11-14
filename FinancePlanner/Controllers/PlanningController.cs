@@ -33,6 +33,8 @@ namespace FinancePlanner.Controllers
             PlanningViewModel planningViewModel = new PlanningViewModel
             {
                 Plans = await _context.Plans.Where(x => x.UserId == userId).ToListAsync(),
+                GoalTypes =  await _context.GoalTypes.ToListAsync(),
+                GoalStatuses =  await _context.GoalStatuses.ToListAsync(),
             };
 
             List<int> planIds = new List<int>();
@@ -70,6 +72,12 @@ namespace FinancePlanner.Controllers
             if (ModelState.IsValid)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
+                var goalStatuses = await _context.GoalStatuses.ToListAsync();
+                var inProgressGoalStatus = goalStatuses.Find(x => x.Status == "In Progress").Id;
+                
+                var planStatuses = await _context.PlanStatuses.ToListAsync();
+                var inProgressPlanStatus = planStatuses.Find(x => x.Status == "In Progress").Id; 
+                
                 var newPlan = new Plan
                 {
                     Title = newPlanModel.Title,
@@ -86,14 +94,17 @@ namespace FinancePlanner.Controllers
                         var newGoal = new Goal
                         {
                             PlanId = newPlan.Id,
+                            GoalTypeId = goal.GoalTypeId,
+                            GoalStatusId = inProgressGoalStatus,
                             Title = goal.Title,
                             NumericalTarget = goal.NumericalTarget,
                             NumericalProgress = goal.NumericalProgress
                         };
                         await _context.AddAsync(newGoal);
-                    }    
+                    }
+                    newPlan.PlanStatusId = inProgressPlanStatus;
                 }
-                
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

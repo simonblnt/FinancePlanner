@@ -4,14 +4,16 @@ using FinancePlanner.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinancePlanner.Migrations
 {
     [DbContext(typeof(PlannerContext))]
-    partial class PlannerContextModelSnapshot : ModelSnapshot
+    [Migration("20211114172149_AddedGoalIdToEvents")]
+    partial class AddedGoalIdToEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,9 +101,6 @@ namespace FinancePlanner.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("GoalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GoalTypeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsRecurring")
@@ -290,9 +289,6 @@ namespace FinancePlanner.Migrations
                     b.Property<int>("EventCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlanStatusId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -302,21 +298,6 @@ namespace FinancePlanner.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Plans");
-                });
-
-            modelBuilder.Entity("FinancePlanner.Models.PlanStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PlanStatuses");
                 });
 
             modelBuilder.Entity("FinancePlanner.Models.Report", b =>

@@ -20,10 +20,20 @@ function changePlanningTab(evt, tabName) {
 
 $(function() {
 
-    $("#add").click(function(e) {
+    $("#add_general").click(function(e) {
         e.preventDefault();
         var i = $(".items").length;
         var n = '<label class="control-label"> Title </label>' +
+            '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="2"/>' +
+            '<input type="text" class="form-control" name="Goals[' + i + '].Title" />';
+        $("#goal-list").append(n);
+    });
+
+    $("#add_financial").click(function(e) {
+        e.preventDefault();
+        var i = $(".items").length;
+        var n = '<label class="control-label"> Title </label>' +
+            '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="3"/>' +
             '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
             '<label class="control-label"> Target </label>' +
             '<input type="number" class="form-control" name="Goals[' + i + '].NumericalTarget" />' +
@@ -32,4 +42,16 @@ $(function() {
         $("#goal-list").append(n);
     });
 
+    $("#add_fitness").click(function(e) {
+        e.preventDefault();
+        var i = $(".items").length;
+        var n = '<label class="control-label"> Title </label>' +
+            '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="4"/>' +
+            '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
+            '<label class="control-label"> Target </label>' +
+            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalTarget" />' +
+            '<label class="control-label"> Progress </label>' +
+            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />';
+        $("#goal-list").append(n);
+    });
 });

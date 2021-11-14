@@ -12,6 +12,8 @@ namespace FinancePlanner.Models
         public int FinancialEventId { get; set; }
         public int FitnessEventId { get; set; }
         public int EventCategoryId { get; set; }
+        public int GoalTypeId { get; set; }
+        public int GoalId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }

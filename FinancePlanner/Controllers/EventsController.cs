@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
@@ -39,39 +40,111 @@ namespace FinancePlanner.Controllers
         
         public async Task<IActionResult> Create()
         { 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
+            
+            
+            List<Plan> planList = await _context.Plans.Where(x => x.UserId == userId).ToListAsync();
             var categoryList = await _context.EventCategories.ToListAsync();
-            var eventCategories = new SelectList(categoryList,"Id", "CategoryTitle");
+            var goalTypeList = await _context.GoalTypes.ToListAsync();
 
-            ViewBag.EventCategoryList = eventCategories;
+            List<Goal> goalList = new List<Goal>();
+            foreach (var plan in planList)
+            {
+                var goals = await _context.Goals.Where(x => x.PlanId == plan.Id).ToListAsync();
+                goalList.AddRange(goals);
+            }
+            
+            var eventCategoriesSelectList = new SelectList(categoryList,"Id", "CategoryTitle");
+            var goalTypesSelectList = new SelectList(goalTypeList,"Id", "Name");
+            var goalsSelectList = new SelectList(goalList,"Id", "Title");
+
+            ViewBag.EventCategoryList = eventCategoriesSelectList;
+            ViewBag.GoalTypeList = goalTypesSelectList;
+            ViewBag.GoalList = goalsSelectList;
             return View();
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,StartDate,EndDate,EventCategoryId")] Event newEvent, int financialAmount, int fitnessDistance, int fitnessDuration)
+        public async Task<IActionResult> Create([Bind("Title,Description,StartDate,EndDate,EventCategoryId,GoalId,GoalTypeId")] Event newEvent, int financialAmount, int fitnessDistance, int fitnessDuration)
         {
             newEvent.CreatedAt = DateTime.Now;
             newEvent.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (ModelState.IsValid)
             {
-                if (financialAmount != 0)
+                bool goalAdded = false;
+                var goalType = await _context.GoalTypes.FindAsync(newEvent.GoalTypeId);
+                var goalStatuses = await _context.GoalStatuses.ToListAsync();
+                
+                
+                if (newEvent.GoalId != 0)
+                {
+                    goalAdded = true;
+                }
+
+                if (goalType.Name == "Financial")
                 {
                     var financialEvent = new FinancialEvent {Amount = financialAmount};
+
+                    if (goalAdded)
+                    {
+                        var goal = await _context.Goals.FindAsync(newEvent.GoalId);
+                        goal.NumericalProgress += financialAmount;
+                        if (goal.NumericalProgress >= goal.NumericalTarget)
+                        {
+                            goal.GoalStatusId = goalStatuses.Find(x => x.Status == "Succeeded").Id;
+                        }
+                        else
+                        {
+                            goal.GoalStatusId = goalStatuses.Find(x => x.Status == "In Progress").Id;
+                        }
+
+                        _context.Update(goal);
+                    }
+
                     await _context.FinancialEvents.AddAsync(financialEvent);
                     await _context.SaveChangesAsync();
                     newEvent.FinancialEventId = financialEvent.Id;
-                }
-
-                if (fitnessDistance != 0 && fitnessDuration != 0)
+                } 
+                else if (goalType.Name == "Fitness")
                 {
                     var fitnessEvent = new FitnessEvent();
                     fitnessEvent.Distance = fitnessDistance;
                     fitnessEvent.Duration = fitnessDuration;
+                    
+                    if (goalAdded)
+                    {
+                        var goal = await _context.Goals.FindAsync(newEvent.GoalId);
+                        goal.NumericalProgress += fitnessDistance;
+                        if (goal.NumericalProgress >= goal.NumericalTarget)
+                        {
+                            goal.GoalStatusId = goalStatuses.Find(x => x.Status == "Succeeded").Id;
+                        }
+                        else
+                        {
+                            goal.GoalStatusId = goalStatuses.Find(x => x.Status == "In Progress").Id;
+                        }
+                        
+                        _context.Update(goal);
+                    }
+                    
                     await _context.FitnessEvents.AddAsync(fitnessEvent);
                     await _context.SaveChangesAsync();
                     
                     newEvent.FitnessEventId = fitnessEvent.Id;
                 }
+                else if (goalType.Name == "General")
+                {
+                    if (goalAdded)
+                    {
+                        var goal = await _context.Goals.FindAsync(newEvent.GoalId);
+                        goal.GoalStatusId = goalStatuses.Find(x => x.Status == "Succeeded").Id;
+                        
+                        _context.Update(goal);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+
                 await _context.AddAsync(newEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -174,7 +247,6 @@ namespace FinancePlanner.Controllers
         {
             var eEvent = await _context.Events.FindAsync(id);
             
-            // todo: change default value of financial and fitness event ids to null instead of 0
             if (eEvent.FinancialEventId != 0)
             {
                 var financialEvent = await _context.FinancialEvents.FindAsync(eEvent.FinancialEventId);

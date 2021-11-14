@@ -1,13 +1,50 @@
 @{
     ViewData["Title"] = "Home Page";
+    string title = "Statistics";
 }
 
-<div><canvas id="lineChart"></canvas></div>
+<html lang="">
+<head>
+    <title>Statistics</title>
+</head>
+<body>
+    <div class="wrapper-table">
+        <div class="title-table">
+            <h1>@title</h1>
+        </div>
+        
+        <div class="wrapper-charts">
+            <div class="chart">
+                <canvas id="lineChart"></canvas>    
+            </div>
+            <div class="chart">
+                <canvas id="lineChart2"></canvas>    
+            </div>
+            <div class="chart">
+                <canvas id="lineChart3"></canvas>    
+            </div>
+            <div class="chart">
+                <canvas id="lineChart4"></canvas>    
+            </div>
+            <div class="chart">
+                <canvas id="lineChart5"></canvas>    
+            </div>
+        </div>
+        
+    </div>
+</body>
+
+
+
+
+
 
 @{var chart = (ChartJSCore.Models.Chart)ViewData["chart"]; }
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         @Html.Raw(chart.CreateChartCode("lineChart"));
+        @Html.Raw(chart.CreateChartCode("lineChart2"));
+        @Html.Raw(chart.CreateChartCode("lineChart3"));
+        @Html.Raw(chart.CreateChartCode("lineChart4"));
+        @Html.Raw(chart.CreateChartCode("lineChart5"));
     </script>

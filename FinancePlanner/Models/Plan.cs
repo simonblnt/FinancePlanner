@@ -8,5 +8,6 @@ namespace FinancePlanner.Models
         public string UserId { get; set; }
         public string Title { get; set; }
         public int EventCategoryId { get; set; }
+        public int PlanStatusId { get; set; }
     }
 }

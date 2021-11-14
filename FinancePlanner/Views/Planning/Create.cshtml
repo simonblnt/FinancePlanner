@@ -26,29 +26,13 @@
                     <span asp-validation-for="EventCategoryId" class="text-danger"></span>
                 </div>
                 
-                <a href="#" id="add">Add Goal</a>
+                <a href="#" id="add_general">Add General Goal</a>
+                <a href="#" id="add_financial">Add Financial Goal</a>
+                <a href="#" id="add_fitness">Add Fitness Goal</a>
                 
                 <div id="goal-list">
                     @Html.EditorFor(f => f.Goals)    
                 </div>
-                
-                
-                
-                @* <div class="form-group"> *@
-                @*     <label asp-for="GoalTitle" class="control-label"></label> *@
-                @*     <input asp-for="GoalTitle" class="form-control"/> *@
-                @*     <span asp-validation-for="GoalTitle" class="text-danger"></span> *@
-                @* </div> *@
-                @* <div class="form-group"> *@
-                @*     <label asp-for="NumericalTarget" class="control-label"></label> *@
-                @*     <input asp-for="NumericalTarget" class="form-control"/> *@
-                @*     <span asp-validation-for="NumericalTarget" class="text-danger"></span> *@
-                @* </div> *@
-                @* <div class="form-group"> *@
-                @*     <label asp-for="NumericalProgress" class="control-label"></label> *@
-                @*     <input asp-for="NumericalProgress" class="form-control"/> *@
-                @*     <span asp-validation-for="NumericalProgress" class="text-danger"></span> *@
-                @* </div> *@
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
