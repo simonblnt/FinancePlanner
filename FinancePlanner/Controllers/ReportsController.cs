@@ -63,19 +63,22 @@ namespace FinancePlanner.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
                 newReport.UserId = userId;
 
-                if (newReport.SendingSchedule == "hourly")
-                {
-                    newReport.NextScheduledDate = DateTime.Now.AddHours(1);
-                } else if (newReport.SendingSchedule == "daily")
-                {
-                    newReport.NextScheduledDate = DateTime.Now.AddDays(1);
-                } else if (newReport.SendingSchedule == "weekly")
-                {
-                    newReport.NextScheduledDate = DateTime.Now.AddDays(7);
-                } else
-                {
-                    newReport.NextScheduledDate = DateTime.Now;
-                }
+                // if (newReport.SendingSchedule == "hourly")
+                // {
+                //     newReport.NextScheduledDate = DateTime.Now.AddHours(1);
+                // } else if (newReport.SendingSchedule == "daily")
+                // {
+                //     newReport.NextScheduledDate = DateTime.Now.AddDays(1);
+                // } else if (newReport.SendingSchedule == "weekly")
+                // {
+                //     newReport.NextScheduledDate = DateTime.Now.AddDays(7);
+                // } else
+                // {
+                //     newReport.NextScheduledDate = DateTime.Now;
+                // }
+                
+                // For testing purposes, send a report when it's created
+                newReport.NextScheduledDate = DateTime.Now;
 
                 await _context.AddAsync(newReport);
                 await _context.SaveChangesAsync();
