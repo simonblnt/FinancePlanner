@@ -12,6 +12,7 @@ namespace FinancePlanner.Models
         public string Title { get; set; }
         public string SendingSchedule { get; set; }
         public DateTime NextScheduledDate { get; set; }
+        public bool ScheduleOverride { get; set; }
         public int ScheduleWeekday { get; set; }
         public int ScheduleDay { get; set; }
         public int ScheduleMonth { get; set; }

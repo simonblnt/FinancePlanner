@@ -36,7 +36,7 @@ namespace FinancePlanner.Jobs
                 {
                     var reports = await GetReports(userId);
                     var currentDateTime = DateTime.Now;
-                    var reportsToSend = reports.Where(r => (r.NextScheduledDate - currentDateTime).TotalSeconds < 60).ToList();
+                    var reportsToSend = reports.Where(r => (r.NextScheduledDate - currentDateTime).TotalSeconds < 60 || r.ScheduleOverride).ToList();
 
                     if (reportsToSend.Any())
                     {
@@ -68,16 +68,23 @@ namespace FinancePlanner.Jobs
                                 sc.Send(msg);
                             }
                             
-                            if (report.SendingSchedule == "hourly")
+                            if (report.ScheduleOverride)
                             {
-                                report.NextScheduledDate = DateTime.Now.AddHours(1);
-                            } else if (report.SendingSchedule == "daily")
+                                report.ScheduleOverride = false;
+                            }
+                            else
                             {
-                                report.NextScheduledDate = DateTime.Now.AddDays(1);
-                            } else if (report.SendingSchedule == "weekly")
-                            {
-                                report.NextScheduledDate = DateTime.Now.AddDays(7);
-                            } 
+                                if (report.SendingSchedule == "hourly")
+                                {
+                                    report.NextScheduledDate = DateTime.Now.AddHours(1);
+                                } else if (report.SendingSchedule == "daily")
+                                {
+                                    report.NextScheduledDate = DateTime.Now.AddDays(1);
+                                } else if (report.SendingSchedule == "weekly")
+                                {
+                                    report.NextScheduledDate = DateTime.Now.AddDays(7);
+                                }
+                            }
 
                             _context.Update(report);
                             await _context.SaveChangesAsync();

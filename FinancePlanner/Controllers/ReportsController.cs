@@ -77,8 +77,8 @@ namespace FinancePlanner.Controllers
                 //     newReport.NextScheduledDate = DateTime.Now;
                 // }
                 
-                // For testing purposes, send a report when it's created
-                newReport.NextScheduledDate = DateTime.Now;
+                // For testing purposes, override schedule on report creation
+                newReport.ScheduleOverride = true;
 
                 await _context.AddAsync(newReport);
                 await _context.SaveChangesAsync();
