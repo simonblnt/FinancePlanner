@@ -17,6 +17,11 @@ using Microsoft.Extensions.Azure;
 using Azure.Storage.Queues;
 using Azure.Storage.Blobs;
 using Azure.Core.Extensions;
+using FinancePlanner.Jobs;
+using FinancePlanner.Models;
+using Quartz;
+using Quartz.Impl.Matchers;
+
 
 namespace FinancePlanner
 {
@@ -32,6 +37,33 @@ namespace FinancePlanner
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddQuartz(q =>
+            {
+                // base quartz scheduler, job and trigger configuration
+                
+                q.UseMicrosoftDependencyInjectionJobFactory();
+                
+                q.UseSimpleTypeLoader();
+                q.UseInMemoryStore();
+                q.UseDefaultThreadPool(tp =>
+                {
+                    tp.MaxConcurrency = 10;
+                });
+                
+                q.ScheduleJob<ReportJob>(trigger => trigger
+                    .WithIdentity("Combined Configuration Trigger")
+                    .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
+                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(1, IntervalUnit.Minute))
+                    .WithDescription("my awesome trigger configured for a job with single call")
+                );
+            });
+
+            // ASP.NET Core hosting
+            services.AddQuartzServer(options =>
+            {
+                // when shutting down we want jobs to complete gracefully
+                options.WaitForJobsToComplete = true;
+            });
             services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddDbContext<PlannerContext>(options =>

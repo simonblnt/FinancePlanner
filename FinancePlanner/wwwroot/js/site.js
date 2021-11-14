@@ -18,13 +18,16 @@ function changePlanningTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
-$(function () {
+$(function() {
 
-    $("#add").click(function (e) {
+    $("#add").click(function(e) {
         e.preventDefault();
         var i = $(".items").length;
-        var n = '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
+        var n = '<label class="control-label"> Title </label>' +
+            '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
+            '<label class="control-label"> Target </label>' +
             '<input type="number" class="form-control" name="Goals[' + i + '].NumericalTarget" />' +
+            '<label class="control-label"> Progress </label>' +
             '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />';
         $("#goal-list").append(n);
     });

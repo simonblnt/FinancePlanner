@@ -39,7 +39,8 @@ namespace FinancePlanner.Controllers
         
         public async Task<IActionResult> Create()
         { 
-            var eventCategories = new SelectList(_context.EventCategories.ToList(),"Id", "CategoryTitle");
+            var categoryList = await _context.EventCategories.ToListAsync();
+            var eventCategories = new SelectList(categoryList,"Id", "CategoryTitle");
 
             ViewBag.EventCategoryList = eventCategories;
             return View();
@@ -81,7 +82,8 @@ namespace FinancePlanner.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateEventCategory()
         {
-            var eventCategories = new SelectList(_context.EventCategories.ToList(), "Id", "CategoryTitle");
+            var categoryList = await _context.EventCategories.ToListAsync();
+            var eventCategories = new SelectList(categoryList, "Id", "CategoryTitle");
 
             ViewBag.EventCategoryList = eventCategories;
             return View();

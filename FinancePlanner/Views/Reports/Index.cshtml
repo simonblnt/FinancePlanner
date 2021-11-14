@@ -1,5 +1,58 @@
+@model FinancePlanner.ViewModels.ReportViewModel
+
 @{
-    ViewData["Title"] = "Reports";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    string title = "Events";
 }
 
-<h2>Reports</h2>
+<!DOCTYPE html>
+
+<html lang="">
+<head>
+    <title>Events</title>
+</head>
+<body>
+        <div class="wrapper-table">
+            <div class="title-table">
+                <h1>@title</h1>
+                <a asp-controller="Reports" asp-action="Create">Create Event</a>
+            </div>
+            <div class="content-table">
+                <table id="events_table" class="events">
+                    <thead>
+                        <tr>
+                            <th>
+                                Reports
+                            </th>
+                            <th>
+                                Plans
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Reports)
+                        {
+                            var planName = "";
+                            planName = Model.Plans.FirstOrDefault(m => m.Id == item.EventId)?.Title;
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => planName)
+                                </td>
+                                <td>
+                                    @* <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> *@
+                                    @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</body>
+</html>

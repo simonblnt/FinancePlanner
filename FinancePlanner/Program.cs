@@ -10,16 +10,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Azure.Identity;
+using FinancePlanner.Jobs;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Logging;
 
 namespace FinancePlanner
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            //PgStatus.GetVersion();
-            
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -34,7 +37,6 @@ namespace FinancePlanner
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
-            
             host.Run();
         }
 

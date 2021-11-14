@@ -54,8 +54,9 @@ namespace FinancePlanner.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Create()
-        { 
-            var eventCategories = new SelectList(_context.EventCategories.ToList(),"Id", "CategoryTitle");
+        {
+            var categoryList = await _context.EventCategories.ToListAsync();
+            var eventCategories = new SelectList(categoryList,"Id", "CategoryTitle");
 
             ViewBag.EventCategoryList = eventCategories;
             return View();
@@ -78,19 +79,20 @@ namespace FinancePlanner.Controllers
                 await _context.AddAsync(newPlan);
                 await _context.SaveChangesAsync();
 
-                foreach (var goal in newPlanModel.Goals)
+                if (newPlanModel.Goals.Count > 0)
                 {
-                    var newGoal = new Goal
+                    foreach (var goal in newPlanModel.Goals)
                     {
-                        PlanId = newPlan.Id,
-                        Title = goal.Title,
-                        NumericalTarget = goal.NumericalTarget,
-                        NumericalProgress = goal.NumericalProgress
-                    };
-                    await _context.AddAsync(newGoal);
+                        var newGoal = new Goal
+                        {
+                            PlanId = newPlan.Id,
+                            Title = goal.Title,
+                            NumericalTarget = goal.NumericalTarget,
+                            NumericalProgress = goal.NumericalProgress
+                        };
+                        await _context.AddAsync(newGoal);
+                    }    
                 }
-                
-                
                 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
