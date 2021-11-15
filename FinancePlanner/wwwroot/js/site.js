@@ -19,7 +19,12 @@ function changePlanningTab(evt, tabName) {
 }
 
 $(function() {
+    $('#event-select-goaltype').change(function(){
+        $('.form-conditional').hide();
 
+        $('#' + $('#event-select-goaltype option:selected').text()).show();
+    });
+    
     $("#add_general").click(function(e) {
         e.preventDefault();
         var i = $(".items").length;

@@ -1,5 +1,61 @@
+@model FinancePlanner.ViewModels.FinanceViewModel
+
 @{
-    ViewData["Title"] = "Finances";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    string title = "Finances";
 }
 
-<h2>Finances</h2>
+<!DOCTYPE html>
+
+<html lang="">
+<head>
+    <title>Events</title>
+</head>
+<body>
+<div class="wrapper-table">
+    <div class="title-table">
+        <h1>@title</h1>
+    </div>
+    <div class="content-table">
+        <table id="events_table" class="events">
+            <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Event
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Date
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var financialEvent in Model.FinancialEvents)
+            {
+                var _event = Model.Events.FirstOrDefault(e => e.FinancialEventId == financialEvent.Id);
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => financialEvent.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => _event.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => financialEvent.Amount) €
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => _event.StartDate)
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

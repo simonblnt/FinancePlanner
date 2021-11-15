@@ -4,14 +4,16 @@ using FinancePlanner.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinancePlanner.Migrations
 {
     [DbContext(typeof(PlannerContext))]
-    partial class PlannerContextModelSnapshot : ModelSnapshot
+    [Migration("20211115110727_AddedEventStatus")]
+    partial class AddedEventStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,9 +92,6 @@ namespace FinancePlanner.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EventCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventStatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("FinancialEventId")

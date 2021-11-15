@@ -42,6 +42,7 @@
                 </div>
                 
                 <div class="form-group">
+                    <label> Event Category </label>
                     <select asp-for="EventCategoryId"
                             class="form-group"
                             asp-items="@ViewBag.EventCategoryList">
@@ -50,14 +51,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <select asp-for="GoalTypeId"
-                            class="form-group"
-                            asp-items="@ViewBag.GoalTypeList">
+                    <label> Type </label>
+                    <select asp-for="GoalTypeId" class="form-group" asp-items="@ViewBag.GoalTypeList" id="event-select-goaltype" >
                     </select>
                     <span asp-validation-for="GoalTypeId" class="text-danger"></span>
                 </div>
                 
                 <div class="form-group">
+                    <label> Goal </label>
                     <select asp-for="GoalId"
                             class="form-group"
                             asp-items="@ViewBag.GoalList">
@@ -66,11 +67,11 @@
                 </div>
                 
                 
-                <div class="form-group">
+                <div class="form-group form-conditional" id="Financial">
                     <label class="control-label">Amount</label>
                     <input type="number" name="financialAmount" value="0"/>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-conditional" id="Fitness">
                     <label class="control-label">Distance</label>
                     <input type="number" name="fitnessDistance" value="0"/>
                     <label class="control-label">Duration</label>

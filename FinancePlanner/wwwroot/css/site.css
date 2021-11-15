@@ -204,6 +204,10 @@ body {
 /* Events
 -------------------------------------------------- */
 
+.form-conditional {
+    display: none;
+}
+
 .warning {
     color: rgb(62, 148, 236);
 }

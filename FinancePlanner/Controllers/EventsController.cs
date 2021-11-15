@@ -46,6 +46,7 @@ namespace FinancePlanner.Controllers
             List<Plan> planList = await _context.Plans.Where(x => x.UserId == userId).ToListAsync();
             var categoryList = await _context.EventCategories.ToListAsync();
             var goalTypeList = await _context.GoalTypes.ToListAsync();
+            var eventStatusList = await _context.EventStatuses.ToListAsync();
 
             List<Goal> goalList = new List<Goal>();
             foreach (var plan in planList)
@@ -57,7 +58,9 @@ namespace FinancePlanner.Controllers
             var eventCategoriesSelectList = new SelectList(categoryList,"Id", "CategoryTitle");
             var goalTypesSelectList = new SelectList(goalTypeList,"Id", "Name");
             var goalsSelectList = new SelectList(goalList,"Id", "Title");
+            var eventStatusSelectList = new SelectList(eventStatusList,"Id", "Status");
 
+            ViewBag.EventStatusList = eventStatusSelectList;
             ViewBag.EventCategoryList = eventCategoriesSelectList;
             ViewBag.GoalTypeList = goalTypesSelectList;
             ViewBag.GoalList = goalsSelectList;
@@ -66,7 +69,7 @@ namespace FinancePlanner.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,StartDate,EndDate,EventCategoryId,GoalId,GoalTypeId")] Event newEvent, int financialAmount, int fitnessDistance, int fitnessDuration)
+        public async Task<IActionResult> Create([Bind("Title,Description,StartDate,EndDate,EventCategoryId,GoalId,GoalTypeId,EventStatusId")] Event newEvent, int financialAmount, int fitnessDistance, int fitnessDuration)
         {
             newEvent.CreatedAt = DateTime.Now;
             newEvent.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -65,7 +65,7 @@ namespace FinancePlanner.Jobs
                                 sc.Host = "smtp.gmail.com";
                                 sc.Port = 587;
                                 sc.Credentials = new NetworkCredential("testprotocollsender@gmail.com", "jE6hxxcN5RApxscWqmhv");
-                                sc.Send(msg);
+                                // sc.Send(msg);
                             }
                             
                             if (report.ScheduleOverride)
