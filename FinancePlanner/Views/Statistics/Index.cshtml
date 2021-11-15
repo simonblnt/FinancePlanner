@@ -15,22 +15,16 @@
         
         <div class="wrapper-charts">
             <div class="chart">
-                <canvas id="lineChart"></canvas>    
+                <canvas id="spendingDateChart"></canvas>    
             </div>
             <div class="chart">
-                <canvas id="lineChart2"></canvas>    
+                <canvas id="spendingCategoryChart"></canvas>    
             </div>
             <div class="chart">
-                <canvas id="lineChart3"></canvas>    
+                <canvas id="eventCategoryChart"></canvas>    
             </div>
-            <div class="chart">
-                <canvas id="lineChart4"></canvas>    
-            </div>
-            <div class="chart">
-                <canvas id="lineChart5"></canvas>    
-            </div>
+            
         </div>
-        
     </div>
 </body>
 
@@ -39,12 +33,15 @@
 
 
 
-@{var chart = (ChartJSCore.Models.Chart)ViewData["chart"]; }
+@{
+    var spendingDateChart = (ChartJSCore.Models.Chart)ViewData["spending_date_chart"];
+    var spendingCategoryChart = (ChartJSCore.Models.Chart)ViewData["spending_category_chart"];
+    // var goal_chart = (ChartJSCore.Models.Chart)ViewData["goal_chart"];
+    var eventCategoryChart = (ChartJSCore.Models.Chart)ViewData["event_category_chart"];
+}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        @Html.Raw(chart.CreateChartCode("lineChart"));
-        @Html.Raw(chart.CreateChartCode("lineChart2"));
-        @Html.Raw(chart.CreateChartCode("lineChart3"));
-        @Html.Raw(chart.CreateChartCode("lineChart4"));
-        @Html.Raw(chart.CreateChartCode("lineChart5"));
+        @Html.Raw(spendingDateChart.CreateChartCode("spendingDateChart"));
+        @Html.Raw(spendingCategoryChart.CreateChartCode("spendingCategoryChart"));
+        @Html.Raw(eventCategoryChart.CreateChartCode("eventCategoryChart"));
     </script>

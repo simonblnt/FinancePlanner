@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ChartJSCore.Helpers;
 using ChartJSCore.Models;
 using FinancePlanner.Database;
+using FinancePlanner.Models;
 using FinancePlanner.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -29,33 +32,99 @@ namespace FinancePlanner.Controllers
 
         public async Task<IActionResult> Index()
         {
-            Chart chart = new Chart();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            StatisticsViewModel newStatistic = new StatisticsViewModel()
+            StatisticsViewModel statisticsViewModel = new StatisticsViewModel()
             {
-                Plans = await _context.Plans.Where(plan => plan.UserId == userId).ToListAsync()
+                Plans = await _context.Plans.Where(plan => plan.UserId == userId).ToListAsync(),
+                Events = await _context.Events.Where(x => x.UserId == userId).ToListAsync(),
+                EventCategories = await _context.EventCategories.ToListAsync()
             };
             List<int> planIds = new List<int>();
             List<int> categoryIds = new List<int>();
+            statisticsViewModel.EventCategoryMap = new Dictionary<string, double?>();
+            statisticsViewModel.SpendingByDateMap = new Dictionary<string, double?>();
+            statisticsViewModel.SpendingByCategoryMap = new Dictionary<string, double?>();
             
-            foreach (var plan in newStatistic.Plans)
+            foreach (var _event in statisticsViewModel.Events)
+            {
+                if (_event.EventCategoryId != 0)
+                {
+                    var category = await _context.EventCategories.FindAsync(_event.EventCategoryId);
+                    var category_name = category.CategoryTitle;
+                        
+                    if (statisticsViewModel.EventCategoryMap.ContainsKey(category_name))
+                    {
+                        statisticsViewModel.EventCategoryMap[category_name]++;    
+                    }
+                    else
+                    {
+                        statisticsViewModel.EventCategoryMap.Add(category_name, 1);
+                    }
+
+                    if (_event.GoalTypeId != 0)
+                    {
+                        var type = await _context.GoalTypes.FindAsync( _event.GoalTypeId);
+                    
+                        var type_name = type.Name;    
+                        
+                        if (type_name == "Financial")
+                        {
+                            var eventDate = _event.StartDate.Date.ToString();
+                            var financialEvent = await _context.FinancialEvents.FindAsync( _event.FinancialEventId);
+                            double? amount = financialEvent.Amount;
+                            
+                            if (statisticsViewModel.SpendingByDateMap.ContainsKey(eventDate))
+                            {
+                                statisticsViewModel.SpendingByDateMap[eventDate] += amount;    
+                            }
+                            else
+                            {
+                                statisticsViewModel.SpendingByDateMap.Add(eventDate, amount);
+                            }
+                            
+                            if (statisticsViewModel.SpendingByCategoryMap.ContainsKey(category_name))
+                            {
+                                statisticsViewModel.SpendingByCategoryMap[category_name] += amount;    
+                            }
+                            else
+                            {
+                                statisticsViewModel.SpendingByCategoryMap.Add(category_name, amount);
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            foreach (var plan in statisticsViewModel.Plans)
             {
                 planIds.Add(plan.Id);
                 categoryIds.Add(plan.EventCategoryId);
             }
             
-            newStatistic.Goals = await _context.Goals.Where(g => planIds.Contains(g.PlanId)).ToListAsync();
-            newStatistic.EventCategories = await _context.EventCategories.Where(g => categoryIds.Contains(g.Id)).ToListAsync();
+            statisticsViewModel.Goals = await _context.Goals.Where(g => planIds.Contains(g.PlanId)).ToListAsync();
+            statisticsViewModel.EventCategories = await _context.EventCategories.Where(g => categoryIds.Contains(g.Id)).ToListAsync();
 
             var numericalTargets = new List<double?>();
             var numericalProgresses = new List<double?>();
-            foreach (var goal in newStatistic.Goals)
+            foreach (var goal in statisticsViewModel.Goals)
             {
                 numericalTargets.Add(goal.NumericalTarget);
                 numericalProgresses.Add(goal.NumericalProgress);
             }
             
+            
+            statisticsViewModel.FinancialEvents = new List<FinancialEvent>();
+            
+            foreach (var _event in statisticsViewModel.Events)
+            {
+                if (_event.FinancialEventId != 0)
+                {
+                    var financialEvent = await _context.FinancialEvents.FindAsync( _event.FinancialEventId);
+                    statisticsViewModel.FinancialEvents.Add(financialEvent);
+                }
+            }
             
             var eventCategories = new SelectList(_context.EventCategories.ToList(),"Id", "CategoryTitle");
             ViewBag.EventCategoryList = eventCategories;
@@ -63,13 +132,107 @@ namespace FinancePlanner.Controllers
             ViewBag.NumericalTargetList = numericalTargets;
             ViewBag.NumericalProgressList = numericalProgresses;
 
+            ViewData["spending_date_chart"] = GetSpendingByDateChart(statisticsViewModel);
+            ViewData["spending_category_chart"] = GetSpendingByCategoryChart(statisticsViewModel);
+            // ViewData["goal_chart"] = GetGoalChart(statisticsViewModel);
+            ViewData["event_category_chart"] = GetEventCategoryChart(statisticsViewModel);
+            return View(statisticsViewModel);
+        }
+        
+        private Chart GetEventCategoryChart(StatisticsViewModel statisticsViewModel)
+        {
+            Chart chart = new Chart();
+            Data data = new Data();
+            data.Datasets = new List<Dataset>();
+            chart.Data = data;
+            chart.Type = Enums.ChartType.Pie;
+            
+            var categoryTitles = statisticsViewModel.EventCategoryMap.Keys.ToList();
+            var categoryValues = statisticsViewModel.EventCategoryMap.Values.ToList();
+
+            data.Labels = categoryTitles;
+            PieDataset dataset = new PieDataset()
+            {
+                Label = "TestChart",
+                Data = categoryValues,
+                BackgroundColor = GetColors(statisticsViewModel.EventCategoryMap.Keys.Count)
+            };
+            data.Datasets.Add(dataset);
+            return chart;
+        }
+        
+        private Chart GetSpendingByCategoryChart(StatisticsViewModel statisticsViewModel)
+        {
+            Chart chart = new Chart();
+            Data data = new Data();
+            data.Datasets = new List<Dataset>();
+            chart.Data = data;
+            chart.Type = Enums.ChartType.PolarArea;
+
+            var categories = statisticsViewModel.SpendingByCategoryMap.Keys.ToList();
+            var values = statisticsViewModel.SpendingByCategoryMap.Values.ToList();
+
+            data.Labels = categories;
+            PolarDataset dataset = new PolarDataset()
+            {
+                Label = "TestChart",
+                Data = values,
+                BackgroundColor = GetColors(statisticsViewModel.SpendingByCategoryMap.Keys.Count)
+            };
+            data.Datasets.Add(dataset);
+            return chart;
+        }
 
 
-
+        private Chart GetSpendingByDateChart(StatisticsViewModel statisticsViewModel)
+        {
+            Chart chart = new Chart();
+            Data data = new Data();
+            data.Datasets = new List<Dataset>();
+            chart.Data = data;
             chart.Type = Enums.ChartType.Line;
-            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
 
-            data.Labels = new List<string>() { "January", "February", "March", "April", "May", "June", "July" };
+            var dates = statisticsViewModel.SpendingByDateMap.Keys.ToList();
+            var values = statisticsViewModel.SpendingByDateMap.Values.ToList();
+
+            data.Labels = dates;
+            LineDataset dataset = new LineDataset()
+            {
+                Label = "TestChart",
+                Data = values,
+                Fill = "false",
+                LineTension = 0.1,
+                BackgroundColor = ChartColor.FromRgba(75, 192, 192, 0.4),
+                BorderColor = ChartColor.FromRgb(75, 192, 192),
+                BorderCapStyle = "butt",
+                BorderDash = new List<int> { },
+                BorderDashOffset = 0.0,
+                BorderJoinStyle = "miter",
+                PointBorderColor = new List<ChartColor> {ChartColor.FromRgb(75, 192, 192)},
+                PointBackgroundColor = new List<ChartColor> {ChartColor.FromHexString("#ffffff")},
+                PointBorderWidth = new List<int> {1},
+                PointHoverRadius = new List<int> {5},
+                PointHoverBackgroundColor = new List<ChartColor> {ChartColor.FromRgb(75, 192, 192)},
+                PointHoverBorderColor = new List<ChartColor> {ChartColor.FromRgb(220, 220, 220)},
+                PointHoverBorderWidth = new List<int> {2},
+                PointRadius = new List<int> {1},
+                PointHitRadius = new List<int> {10},
+                SpanGaps = false
+            };
+            data.Datasets.Add(dataset);
+            return chart;
+        }
+        
+        private Chart GetGoalChart(StatisticsViewModel statisticsViewModel)
+        {
+            Chart chart = new Chart();
+            Data data = new Data();
+            data.Datasets = new List<Dataset>();
+            chart.Data = data;
+            chart.Type = Enums.ChartType.Line;
+            
+
+            data.Labels = new List<string>() { "asd", "asd", "asd", "asd", "asd", "asd", "asd" };
             LineDataset dataset = new LineDataset()
             {
                 Label = "TestChart",
@@ -93,14 +256,32 @@ namespace FinancePlanner.Controllers
                 PointHitRadius = new List<int> {10},
                 SpanGaps = false
             };
-
-            data.Datasets = new List<Dataset>();
             data.Datasets.Add(dataset);
+            return chart;
+        }
 
-            chart.Data = data;
 
-            ViewData["chart"] = chart;
-            return View(newStatistic);
+        private List<ChartColor> GetColors(int count)
+        {
+            var colors = new List<ChartColor>();
+
+            for (int i = 0; i < count; i++)
+            {
+                Random rnd = new Random();
+                byte red  = (byte) rnd.Next(0, 256);
+                byte green  = (byte) rnd.Next(0, 256);
+                byte blue  = (byte) rnd.Next(0, 256);
+                ChartColor color = new ChartColor();
+                
+                color.Red = red;
+                color.Blue = green;
+                color.Green = blue;
+                color.Alpha = 0.5;
+                
+                colors.Add(color);
+            }
+
+            return colors;
         }
     }
 }
