@@ -10,34 +10,46 @@
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<header class="main-header">
+    <nav class="navbar">
         <div class="container menu-bar">
+            
+            <div class="title-table">
+                <h1 class="main-title">Planner</h1>
+            </div>
             @if (SignInManager.IsSignedIn(User))
             {
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                            <a class="menu-link" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
+                            <a class="menu-link" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Planning" asp-action="Index">Planning</a>
+                            <a class="menu-link " asp-area="" asp-controller="Planning" asp-action="Index">Planning</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
+                            <a class="menu-link" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Finances" asp-action="Index">Finances</a>
+                            <a class="menu-link" asp-area="" asp-controller="Finances" asp-action="Index">Finances</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
+                            <a class="menu-link" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
                         </li>
                     </ul>
                 </div>
             }
+        </div>
+        
+    </nav>
+</header>
+<div class="container content">
+    <div class="navbar">
+        <div class="title-table">
+            <h1>@ViewData["Title"]</h1>
         </div>
         <div class="container login-bar">
             <ul class="navbar-nav flex-grow-1">
@@ -50,18 +62,15 @@
                             </button>
                         </form>
                     </li>
-                } 
+                }
                 else
                 {
                     <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></li>        
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></li>
                 }
-                
             </ul>
         </div>
-    </nav>
-</header>
-<div class="container content">
+    </div>
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

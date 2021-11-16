@@ -11,9 +11,10 @@ a.navbar-brand {
 
 .navbar>.menu-bar{
     justify-content: space-between;
+    align-items: flex-start;
 }
 
-.navbar>.login-bar>ul{
+.navbar>.login-bar{
     justify-content: flex-end;
 }
 
@@ -36,10 +37,19 @@ a {
     border-color: #1861ac;
 }
 
+.nav-item {
+    margin-bottom: 5%;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
     font-size: 14px;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -75,14 +85,19 @@ button.accept-policy {
 html {
     position: relative;
     min-height: 100%;
-    font-family: 'Gentium Basic';
-    background-color: #f2f2f2;
+    font-family: 'Gentium Basic', serif;
+    font-size: 20px;
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    background-color: #f2f2f2;
+    background-color: #fffcff;
+    color: #344955;
+    display: flex;
+}
+
+.main-header {
+    background-color: #344955;
+    color: #fffcff;
 }
 
 .footer {
@@ -93,8 +108,16 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
-/* Main
--------------------------------------------------- */
+.navbar-nav {
+    font-size: 24px;
+}
+
+.menu-link {
+    color: #fffcff;
+}
+
+    /* Main
+    -------------------------------------------------- */
 
 .tab {
     overflow: hidden;
@@ -135,15 +158,47 @@ body {
 }
 
 .content {
-    background-color: #ffffff;
-    box-shadow: 2px 0px 20px 0px;
-    padding: 32px;
-    border-radius: 12px;
-    margin: auto;
+    padding: 0;
+    margin: 0;
     width: 100%;
+    display: flex;
+}
+
+.content .navbar {
+    background-color: #fffcff;
+    color: #344955;
+    box-shadow: 1px 1px 13px 0px;
+    border-radius: 0px 0px 12px 12px;
+}
+
+.wrapper-table {
+    background-color: #fffcff;
+    color: #344955;
+    box-shadow: 2px 0px 20px 0px;
+    border-radius: 12px;
 }
 
 .container {
+    flex-direction: column;
+}
+
+.container .login-bar{
+    align-items: flex-end;
+}
+
+.content .navbar {
+    margin-bottom: 2%;
+}
+
+.info-bar {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.info-card {
+    background-color: whitesmoke;
+    flex-direction: row;
     
 }
 
@@ -180,8 +235,29 @@ body {
     border-radius: 20px;
     box-sizing:border-box;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    margin: 20px;
+    margin: 20px 50px 20px 50px;
     flex-shrink: 0;
+}
+
+.card-img {
+    font-size: 60px;
+    width: auto;
+    margin: auto;
+}
+
+.card-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.card-title{
+    font-size: 27px;
+}
+
+.card-value{
+    font-size: 27px;
 }
 
 .card ul {
@@ -190,6 +266,19 @@ body {
 
 .card li {
     list-style-type: none;
+}
+
+#financial_card {
+    background-color: #f2e291;
+}
+#fitness_card {
+    background-color: #b3e5fc;
+}
+#category_card {
+    background-color: #c5cae9;
+}
+#in_progress_card {
+    background-color: #f0f4c3;
 }
 
 /* Categories

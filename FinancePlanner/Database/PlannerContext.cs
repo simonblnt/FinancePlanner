@@ -22,7 +22,7 @@ namespace FinancePlanner.Database
         public DbSet<Goal> Goals { get; set; }
         public DbSet<GoalStatus> GoalStatuses { get; set; }
         public DbSet<PlanStatus> PlanStatuses { get; set; }
-        public DbSet<PlanStatus> EventStatuses { get; set; }
+        public DbSet<EventStatus> EventStatuses { get; set; }
         public DbSet<GoalType> GoalTypes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Plan> Plans { get; set; }
