@@ -35,7 +35,10 @@ namespace FinancePlanner.Controllers
                 EventCategories = await _context.EventCategories.ToListAsync(),
                 EventStatuses = await _context.EventStatuses.ToListAsync(),
                 GoalTypes = await _context.GoalTypes.ToListAsync(),
+                Goals = await _context.Goals.ToListAsync()
             };
+            
+            
             
             
             ViewData["Title"] = "Events";

@@ -8,77 +8,85 @@
     <title>Statistics</title>
 </head>
 <body>
-<div class="wrapper-table-dark">
-    <div class="wrapper-charts">
-        <div class="chart-row">
-            <div class="card info-card col-xl-3 col-md-6" id="in_progress_card">
-                <div class="card-img col-4"><i class="fas fa-hourglass-half"></i></div>
-                <div class="card-text col-8">
-                    <div class="card-title">
-                        Plans in progress
-                    </div>
-                    <div class="card-value">
-                        @ViewData["In_progress"]
-                    </div>
-                </div>
-            </div>
-            <div class="card info-card col-xl-3 col-md-6" id="category_card">
-                <div class="card-img col-4"><i class="fas fa-chart-pie"></i></div>
-                <div class="card-text col-8">
-                    <div class="card-title">
-                        Most frequent category
-                    </div>
-                    <div class="card-value">
-                        @ViewData["Most_used_category"]
-                    </div>
-                </div>
-            </div>
-            <div class="card info-card col-xl-3 col-md-6" id="fitness_card">
-                <div class="card-img col-4"><i class="fas fa-running"></i></div>
-                <div class="card-text col-8">
-                    <div class="card-title">
-                        Fitness events
-                    </div>
-                    <div class="card-value">
-                        @ViewData["Fitness"]
-                    </div>
-                </div>
-            </div>
-            <div class="card info-card col-xl-3 col-md-6" id="financial_card">
-                <div class="card-img col-4"><i class="fas fa-coins"></i></div>
-                <div class="card-text col-8">
-                    <div class="card-title">
-                        Financial events
-                    </div>
-                    <div class="card-value">
-                        @ViewData["Financial"]
-                    </div>
-                </div>
-            </div>
+<div class="page-wrapper">
+    
+    <div class="title-table">
+        <div class="title-table-title">
+            <h1>@ViewData["Title"]</h1>
         </div>
-        <div class="chart-row">
-            <div class="chart col-xl-6">
-                <div class="chart-header">
-                    <h3>Spending by date</h3>
+    </div>
+    <div class="wrapper-table-dark">
+        <div class="wrapper-charts">
+            <div class="chart-row">
+                <div class="card info-card col-xl-3 col-md-6" id="in_progress_card">
+                    <div class="card-img col-4"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="card-text col-8">
+                        <div class="card-title">
+                            Plans in progress
+                        </div>
+                        <div class="card-value">
+                            @ViewData["In_progress"]
+                        </div>
+                    </div>
                 </div>
-                <div class="chart-content">
-                    <canvas id="spendingDateChart"></canvas>
+                <div class="card info-card col-xl-3 col-md-6" id="category_card">
+                    <div class="card-img col-4"><i class="fas fa-chart-pie"></i></div>
+                    <div class="card-text col-8">
+                        <div class="card-title">
+                            Most frequent category
+                        </div>
+                        <div class="card-value">
+                            @ViewData["Most_used_category"]
+                        </div>
+                    </div>
+                </div>
+                <div class="card info-card col-xl-3 col-md-6" id="fitness_card">
+                    <div class="card-img col-4"><i class="fas fa-running"></i></div>
+                    <div class="card-text col-8">
+                        <div class="card-title">
+                            Fitness events
+                        </div>
+                        <div class="card-value">
+                            @ViewData["Fitness"]
+                        </div>
+                    </div>
+                </div>
+                <div class="card info-card col-xl-3 col-md-6" id="financial_card">
+                    <div class="card-img col-4"><i class="fas fa-coins"></i></div>
+                    <div class="card-text col-8">
+                        <div class="card-title">
+                            Financial events
+                        </div>
+                        <div class="card-value">
+                            @ViewData["Financial"]
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="chart col-xl-3">
-                <div class="chart-header">
-                    <h3>Spending by category</h3>
+            <div class="chart-row">
+                <div class="chart col-xl-6">
+                    <div class="chart-header">
+                        <h3>Spending by date</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="spendingDateChart"></canvas>
+                    </div>
                 </div>
-                <div class="chart-content">
-                    <canvas id="spendingCategoryChart"></canvas>
+                <div class="chart col-xl-3">
+                    <div class="chart-header">
+                        <h3>Spending by category</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="spendingCategoryChart"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div class="chart col-xl-3">
-                <div class="chart-header">
-                    <h3>Events by category</h3>
-                </div>
-                <div class="chart-content">
-                    <canvas id="eventCategoryChart"></canvas>
+                <div class="chart col-xl-3">
+                    <div class="chart-header">
+                        <h3>Events by category</h3>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="eventCategoryChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

@@ -34,13 +34,19 @@
                         Description
                     </th>
                     <th>
-                        Status
+                        Goal
                     </th>
                     <th>
                         Event Category
                     </th>
                     <th>
-                        Date Created
+                        Started at
+                    </th>
+                    <th>
+                        Finished at
+                    </th>
+                    <th>
+                        Duration
                     </th>
                     <th>
                         Actions
@@ -57,8 +63,15 @@
                     eventCategoryName = Model.EventCategories.FirstOrDefault(m => m.Id == item.EventCategoryId)?.CategoryTitle;
                     var statusName = "";
                     statusName = Model.EventStatuses.FirstOrDefault(m => m.Id == item.EventCategoryId)?.Status;
-                    var startDate = item.StartDate;
 
+                    var planName = "";
+                    planName = Model.Goals.Find(x => x.Id == item.GoalId).Title;
+                    
+                    var startDate = item.StartDate;
+                    var endDate = item.EndDate;
+
+                    var duration = endDate.Subtract(startDate).ToString("hh\\:mm\\:ss");
+                    
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => eventTitle)
@@ -67,13 +80,19 @@
                             @Html.DisplayFor(modelItem => eventDescription)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => statusName)
+                            @Html.DisplayFor(modelItem => planName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => eventCategoryName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => startDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => endDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => duration)
                         </td>
                         <td class="action-items">
                             <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
