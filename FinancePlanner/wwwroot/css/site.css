@@ -16,13 +16,15 @@ a.navbar-brand {
 
 .navbar>.login-bar{
     justify-content: flex-end;
+    align-self: center;
+    padding-right: 5%;
 }
 
 /* Provide sufficient contrast against white background */
 a {
     margin-left: 10px;
     margin-right: 10px;
-    color: #0366d6;
+    color: #fbfdff;
 }
 
 .btn-primary {
@@ -59,7 +61,7 @@ html, body {
 }
 @media (min-width: 1200px) {
     .container{
-        max-width: 80%;
+        /*max-width: 80%;*/
     }
 }
 
@@ -85,23 +87,32 @@ button.accept-policy {
 html {
     position: relative;
     min-height: 100%;
-    font-family: 'Gentium Basic', serif;
+    font-family: 'Open Sans';
     font-size: 20px;
 }
 
 body {
-    background-color: #fffcff;
+    background-color: #E0E7E9;
     color: #344955;
+}
+
+.main-wrapper {
     display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: row;
 }
 
 .main-header {
-    background-color: #344955;
+    background-color: #354649;
     color: #fffcff;
 }
 
 .footer {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0;
     width: 100%;
     white-space: nowrap;
@@ -165,41 +176,66 @@ body {
 }
 
 .content .navbar {
-    background-color: #fffcff;
-    color: #344955;
-    box-shadow: 1px 1px 13px 0px;
-    border-radius: 0px 0px 12px 12px;
+    background-color: #354649;
+    color: #E0E7E9;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: rgb(175 175 175);
+}
+
+a {
+    color: #E0E7E9;
+}
+
+.page-wrapper {
+    padding: 3%;
 }
 
 .wrapper-table {
-    background-color: #fffcff;
+    background-color: white;
     color: #344955;
-    box-shadow: 2px 0px 20px 0px;
+    /*box-shadow: 2px 0px 20px 0px;*/
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: rgb(175 175 175);
     border-radius: 12px;
 }
 
 .container {
     flex-direction: column;
+    max-width: 100%;
 }
 
 .container .login-bar{
     align-items: flex-end;
 }
 
-.content .navbar {
-    margin-bottom: 2%;
+.main-content .navbar {
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+}
+main-content .navbar .menu-bar{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+}
+
+main-content .navbar .nav-item{
+    padding: 10%;
 }
 
 .info-bar {
     display: flex;
     margin-bottom: 10px;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .info-card {
     background-color: whitesmoke;
     flex-direction: row;
-    
 }
 
 .title-string {
@@ -253,7 +289,7 @@ body {
 }
 
 .card-title{
-    font-size: 27px;
+    font-size: 24px;
 }
 
 .card-value{
@@ -352,9 +388,8 @@ pre {
     padding: 2px 15px 2px 15px;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid;
-    border-radius: 5pt;
     margin-bottom: 10px;
+    justify-content: flex-end;
 }
 
     .title-table h1 {
@@ -366,29 +401,25 @@ pre {
     }
 
     .title-table a {
-        flex-grow: 1;
         height: auto;
         width: fit-content;
-        margin-left: auto;
-        margin-top: 0;
-        margin-bottom: 0;
         align-self: center;
         outline: none;
-        background: transparent;
+        background: #344955;
         padding: 15px;
-        outline: none;
         text-align: center;
-        color: inherit;
+        color: white;
         font-family: inherit;
         font-size: inherit;
         border: 2px solid var(--secondary-bg-color);
         border-radius: 20px;
         display: inline-block;
-        transition: 0.75s;
+        transition: 0.5s;
     }
 
         .title-table a:hover {
-            background: #4cd137;
+            background: white;
+            color: #344955;
         }
 
     .title-table i {

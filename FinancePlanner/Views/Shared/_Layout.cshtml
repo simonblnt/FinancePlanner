@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Eczar' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/399f7f7414.js" crossorigin="anonymous"></script>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,81 +11,92 @@
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
-<header class="main-header">
-    <nav class="navbar">
-        <div class="container menu-bar">
-            
-            <div class="title-table">
-                <h1 class="main-title">Planner</h1>
-            </div>
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+<div class="main-wrapper">
+    <div class="main-content">
+        <header class="main-header">
+            <nav class="navbar">
+                <div class="container menu-bar">
+
+                    <div class="title-table">
+                        <h1 class="main-title">Planner</h1>
+                    </div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="menu-link " asp-area="" asp-controller="Planning" asp-action="Index">Planning</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Finances" asp-action="Index">Finances</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+
+            </nav>
+        </header>
+        <div class="container content">
+            <div class="navbar">
+                <div class="title-table">
+                    <h1>@ViewData["Title"]</h1>
+                </div>
+                <div class="login-bar">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="menu-link" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="menu-link" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="menu-link " asp-area="" asp-controller="Planning" asp-action="Index">Planning</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="menu-link" asp-area="" asp-controller="Statistics" asp-action="Index">Statistics</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="menu-link" asp-area="" asp-controller="Finances" asp-action="Index">Finances</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="menu-link" asp-area="" asp-controller="Reports" asp-action="Index">Reports</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <button type="submit" class="nav-link btn btn-link py-0" style="width: auto">
+                                        Logout @User.Identity?.Name
+                                    </button>
+                                </form>
+                            
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></li>
+                        }
                     </ul>
                 </div>
-            }
-        </div>
-        
-    </nav>
-</header>
-<div class="container content">
-    <div class="navbar">
-        <div class="title-table">
-            <h1>@ViewData["Title"]</h1>
-        </div>
-        <div class="container login-bar">
-            <ul class="navbar-nav flex-grow-1">
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <li class="nav-item">
-                        <form method="post" asp-controller="Account" asp-action="Logout">
-                            <button type="submit" class="nav-link btn btn-link py-0" style="width: auto">
-                                Logout @User.Identity?.Name
-                            </button>
-                        </form>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></li>
-                }
-            </ul>
+            </div>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
     </div>
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
+    <div class="main-footer">
+        <footer class="border-top footer text-muted">
+            <div class="container">
+
+                &copy; 2021 - Version @Assembly.GetEntryAssembly()?.GetName().Version
+            </div>
+        </footer>
+    </div>    
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        
-        &copy; 2021 - Version @Assembly.GetEntryAssembly()?.GetName().Version
-    </div>
-</footer>
+
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
+
+
+
 </html>

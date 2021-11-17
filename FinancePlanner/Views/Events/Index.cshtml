@@ -12,118 +12,75 @@
     <title>Events</title>
 </head>
 <body>
-<div class="info-bar">
-    <div class="card info-card" id="in_progress_card">
-        <div class="card-img"><i class="fas fa-hourglass-half"></i></div>
-        <div class="card-text">
-            <div class="card-title">
-                In progress
-            </div>
-            <div class="card-value">
-                @ViewData["In progress"]
-            </div>
-        </div>
-    </div>
-    <div class="card info-card" id="category_card">
-        <div class="card-img"><i class="fas fa-chart-pie"></i></div>
-        <div class="card-text">
-            <div class="card-title">
-                Most frequent category
-            </div>
-            <div class="card-value">
-                @ViewData["Most_used_category"]
-            </div>
-        </div>
-    </div>
-    <div class="card info-card" id="fitness_card">
-        <div class="card-img"><i class="fas fa-running"></i></div>
-        <div class="card-text">
-            <div class="card-title">
-                Fitness events
-            </div>
-            <div class="card-value">
-                @ViewData["Fitness"]
-            </div>
-        </div>
-    </div>
-    <div class="card info-card" id="financial_card">
-        <div class="card-img"><i class="fas fa-coins"></i></div>
-        <div class="card-text">
-            <div class="card-title">
-                Financial events
-            </div>
-            <div class="card-value">
-                @ViewData["Financial"]
-            </div>
-        </div>
-    </div>
-</div>
-<div class="wrapper-table">
+<div class="page-wrapper">
     <div class="title-table">
-        <a asp-controller="Events" asp-action="Create">Create Event</a>
-        <a asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
+        <a class="create-button" asp-controller="Events" asp-action="Create">Create Event</a>
+        <a class="create-button" asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
     </div>
-    <div class="content-table">
-        <table id="events_table" class="events">
-            <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Event Category
-                </th>
-                <th>
-                    Date Created
-                </th>
-                <th>
-                    Actions
-                </th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in Model.Events)
-            {
-                var eventTitle = item.Title;
-                var eventDescription = item.Description;
-                var eventCategoryName = "";
-                eventCategoryName = Model.EventCategories.FirstOrDefault(m => m.Id == item.EventCategoryId)?.CategoryTitle;
-                var statusName = "";
-                statusName = Model.EventStatuses.FirstOrDefault(m => m.Id == item.EventCategoryId)?.Status;
-                var startDate = item.StartDate;
-
+    <div class="wrapper-table">
+        <div class="content-table">
+            <table id="events_table" class="events">
+                <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => eventTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => eventDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => statusName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => eventCategoryName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => startDate)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
-                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
-                    </td>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Event Category
+                    </th>
+                    <th>
+                        Date Created
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                    <th></th>
                 </tr>
-            }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Events)
+                {
+                    var eventTitle = item.Title;
+                    var eventDescription = item.Description;
+                    var eventCategoryName = "";
+                    eventCategoryName = Model.EventCategories.FirstOrDefault(m => m.Id == item.EventCategoryId)?.CategoryTitle;
+                    var statusName = "";
+                    statusName = Model.EventStatuses.FirstOrDefault(m => m.Id == item.EventCategoryId)?.Status;
+                    var startDate = item.StartDate;
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => eventTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eventDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => statusName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eventCategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => startDate)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 </body>
 </html>
