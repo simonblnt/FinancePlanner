@@ -13,11 +13,12 @@
     <title></title>
 </head>
 <body>
-<div>
-    <h1>Create event</h1>
-    
-    <div class="row">
-        <div class="col-md-4">
+<div class="form-wrapper">
+    <div class="form-container">
+        <div class="form-title">
+            <h1>Create event</h1>
+        </div>
+        <div class="form-group">
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -27,46 +28,46 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
+                    <input asp-for="Description" class="form-control"/>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="StartDate" class="control-label"></label>
-                    <input asp-for="StartDate" class="form-control" />
+                    <input asp-for="StartDate" class="form-control"/>
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="EndDate" class="control-label"></label>
-                    <input asp-for="EndDate" class="form-control" />
+                    <input asp-for="EndDate" class="form-control"/>
                     <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label> Event Category </label>
                     <select asp-for="EventCategoryId"
-                            class="form-group"
+                            class="form-control"
                             asp-items="@ViewBag.EventCategoryList">
                     </select>
                     <span asp-validation-for="EventCategoryId" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label> Type </label>
-                    <select asp-for="GoalTypeId" class="form-group" asp-items="@ViewBag.GoalTypeList" id="event-select-goaltype" >
+                    <select asp-for="GoalTypeId" class="form-control" asp-items="@ViewBag.GoalTypeList" id="event-select-goaltype">
                     </select>
                     <span asp-validation-for="GoalTypeId" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label> Goal </label>
                     <select asp-for="GoalId"
-                            class="form-group"
+                            class="form-control"
                             asp-items="@ViewBag.GoalList">
                     </select>
                     <span asp-validation-for="GoalId" class="text-danger"></span>
                 </div>
-                
-                
+
+
                 <div class="form-group form-conditional" id="Financial">
                     <label class="control-label">Amount</label>
                     <input type="number" name="financialAmount" value="0"/>
@@ -78,11 +79,13 @@
                     <input type="number" name="fitnessDuration" value="0"/>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Create" class="btn btn-primary"/>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

@@ -34,6 +34,10 @@ $(function() {
         $("#goal-list").append(n);
     });
 
+    // $(function () {
+    //     $('#event-select-goaltype').datetimepicker();
+    // });
+
     $("#add_financial").click(function(e) {
         e.preventDefault();
         var i = $(".items").length;
