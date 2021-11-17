@@ -16,7 +16,6 @@
         <header class="main-header">
             <nav class="navbar">
                 <div class="container menu-bar">
-
                     <div class="title-table dark">
                         <h1 class="main-title">Planner</h1>
                     </div>
@@ -69,33 +68,28 @@
         </header>
         <div class="container content">
             <div class="navbar">
-                <div class="title-table">
-                    
-                </div>
                 <div class="login-bar">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <form method="post" asp-controller="Account" asp-action="Logout">
-                                <div class="logout-bar">
-                                    <div class="logout-username">
-                                        @User.Identity?.Name    
-                                    </div>
-                                    <div class="logout-action">
-                                        <button type="submit" class="nav-link btn btn-link py-0" style="width: auto">
-                                            Logout <i class="fas fa-user"></i>
-                                        </button>
-                                    </div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <div class="logout-bar">
+                                <div class="logout-username">
+                                    @User.Identity?.Name    
                                 </div>
-                            </form>
+                                <div class="logout-action">
+                                    <button type="submit" class="nav-link btn btn-link py-0" style="width: auto">
+                                        Logout <i class="fas fa-user"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                             
-                        }
-                        else
-                        {
-                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a></li>
-                        }
-                    </ul>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign Up</a>
+                    }
                 </div>
             </div>
             <main role="main" class="pb-3">

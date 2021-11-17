@@ -262,6 +262,16 @@ a {
     align-items: flex-end;
 }
 
+.login-bar{
+    display: flex;
+    align-items: flex-end;
+}
+
+.login-navbar{
+    display: flex;
+    align-items: flex-end;
+}
+
 .logout-bar {
     display: flex;
     align-items: flex-end;
@@ -282,6 +292,7 @@ a {
 .main-content .navbar {
     display: flex;
     align-items: flex-start;
+    justify-content: flex-end;
 }
 main-content .navbar .menu-bar{
     display: flex;
@@ -338,7 +349,7 @@ main-content .navbar .nav-item{
 
 .card-title {
     margin: 0;
-    flex: 75%;
+    /*flex: 75%;*/
 }
 
 .card-action {
@@ -391,7 +402,7 @@ main-content .navbar .nav-item{
 }
 
 .card-value{
-    font-size: 27px;
+    font-size: 30px;
 }
 
 .card ul {
@@ -798,4 +809,13 @@ pre {
 
 .col-xl-2 {
     flex:25%;
+}
+
+.budget-title {
+    display: flex;
+    flex-direction: row;
+}
+
+.budget-title-string {
+    margin-right: 1%;
 }

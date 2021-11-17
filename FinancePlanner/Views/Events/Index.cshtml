@@ -45,9 +45,9 @@
                     <th>
                         Finished at
                     </th>
-                    <th>
-                        Duration
-                    </th>
+                    @* <th> *@
+                    @*     Duration *@
+                    @* </th> *@
                     <th>
                         Actions
                     </th>
@@ -65,7 +65,11 @@
                     statusName = Model.EventStatuses.FirstOrDefault(m => m.Id == item.EventCategoryId)?.Status;
 
                     var planName = "";
-                    planName = Model.Goals.Find(x => x.Id == item.GoalId).Title;
+                    if (item.GoalId != 0)
+                    {
+                        planName = Model.Goals.Find(x => x.Id == item.GoalId).Title;
+                    }
+                    
                     
                     var startDate = item.StartDate;
                     var endDate = item.EndDate;
@@ -91,9 +95,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => endDate)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => duration)
-                        </td>
+                        @* <td> *@
+                        @*     @Html.DisplayFor(modelItem => duration) *@
+                        @* </td> *@
                         <td class="action-items">
                             <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a>
                             <form asp-action="Delete">

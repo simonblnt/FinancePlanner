@@ -78,8 +78,11 @@ namespace FinancePlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Description,StartDate,EndDate,EventCategoryId,GoalId,GoalTypeId,EventStatusId")] Event newEvent, int financialAmount, int fitnessDistance, int fitnessDuration)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
             newEvent.CreatedAt = DateTime.Now;
             newEvent.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            
             if (ModelState.IsValid)
             {
                 bool goalAdded = false;
@@ -95,7 +98,11 @@ namespace FinancePlanner.Controllers
                 if (goalType.Name == "Financial")
                 {
                     var financialEvent = new FinancialEvent {Amount = financialAmount};
+                    var wallet = await _context.Wallets.Where(x => x.UserId == userId).ToListAsync();
 
+                    wallet[0].Amount -= financialAmount;
+                    _context.Update(wallet[0]);
+                    
                     if (goalAdded)
                     {
                         var goal = await _context.Goals.FindAsync(newEvent.GoalId);
@@ -120,7 +127,7 @@ namespace FinancePlanner.Controllers
                 {
                     var fitnessEvent = new FitnessEvent();
                     fitnessEvent.Distance = fitnessDistance;
-                    fitnessEvent.Duration = fitnessDuration;
+                    fitnessEvent.Duration = 0;
                     
                     if (goalAdded)
                     {
@@ -199,7 +206,31 @@ namespace FinancePlanner.Controllers
             }
             
             var eventCategories = new SelectList(_context.EventCategories.ToList(),"Id", "CategoryTitle");
+            
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
+            
+            
+            List<Plan> planList = await _context.Plans.Where(x => x.UserId == userId).ToListAsync();
+            var categoryList = await _context.EventCategories.ToListAsync();
+            var goalTypeList = await _context.GoalTypes.ToListAsync();
+            var eventStatusList = await _context.EventStatuses.ToListAsync();
 
+            List<Goal> goalList = new List<Goal>();
+            foreach (var plan in planList)
+            {
+                var goals = await _context.Goals.Where(x => x.PlanId == plan.Id).ToListAsync();
+                goalList.AddRange(goals);
+            }
+            
+            var eventCategoriesSelectList = new SelectList(categoryList,"Id", "CategoryTitle");
+            var goalTypesSelectList = new SelectList(goalTypeList,"Id", "Name");
+            var goalsSelectList = new SelectList(goalList,"Id", "Title");
+            var eventStatusSelectList = new SelectList(eventStatusList,"Id", "Status");
+
+            ViewBag.EventStatusList = eventStatusSelectList;
+            ViewBag.GoalTypeList = goalTypesSelectList;
+            ViewBag.GoalList = goalsSelectList;
             ViewBag.EventCategoryList = eventCategories;
             return View(_event);
         }
@@ -213,10 +244,24 @@ namespace FinancePlanner.Controllers
                 return NotFound();
             }
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var financialEvent = await _context.FinancialEvents.FindAsync(_event.FinancialEventId);
+                    var wallet = await _context.Wallets.Where(x => x.UserId == userId).ToListAsync();
+                    if (financialEvent.Amount != financialAmount)
+                    {
+                        wallet[0].Amount += financialEvent.Amount;
+                        wallet[0].Amount -= financialAmount;
+                        
+                        financialEvent.Amount = financialAmount;
+                        
+                        _context.Update(financialEvent);
+                        _context.Update(wallet[0]);
+                    }
+
                     _context.Update(_event);
                     await _context.SaveChangesAsync();
                 }
@@ -255,11 +300,16 @@ namespace FinancePlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new ArgumentNullException("User.FindFirstValue(ClaimTypes.NameIdentifier)");
             var eEvent = await _context.Events.FindAsync(id);
+            var wallet = await _context.Wallets.Where(x => x.UserId == userId).ToListAsync();
             
             if (eEvent.FinancialEventId != 0)
             {
                 var financialEvent = await _context.FinancialEvents.FindAsync(eEvent.FinancialEventId);
+                var amount = financialEvent.Amount;
+                wallet[0].Amount += amount;
+                _context.Wallets.Update(wallet[0]);
                 _context.FinancialEvents.Remove(financialEvent);
             }
             

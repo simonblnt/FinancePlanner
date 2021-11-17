@@ -22,13 +22,19 @@
         </div>
     </div>
     <div class="wrapper-table">
+        <div class="budget-bar">
+            <div class="budget-title">
+                <h4 class="budget-title-string">Budget:</h4>
+                <h4>@Html.DisplayFor(modelItem => Model.Wallets[0].Amount) €</h4>
+            </div>
+        </div>
         <div class="content-table">
             <table id="events_table" class="events">
                 <thead>
                 <tr>
-                    <th>
-                        Title
-                    </th>
+                    @* <th> *@
+                    @*     Title *@
+                    @* </th> *@
                     <th>
                         Event
                     </th>
@@ -50,9 +56,9 @@
                     var eventCategoryName = "";
                     eventCategoryName = Model.EventCategories.FirstOrDefault(m => m.Id == _event.EventCategoryId)?.CategoryTitle;
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => financialEvent.Subject)
-                        </td>
+                        @* <td> *@
+                        @*     @Html.DisplayFor(modelItem => financialEvent.Subject) *@
+                        @* </td> *@
                         <td>
                             @Html.DisplayFor(modelItem => _event.Description)
                         </td>

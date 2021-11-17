@@ -174,7 +174,8 @@ namespace FinancePlanner.Controllers
             }
                 
             var mostFrequentCategoryId = categoriesMap.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-            var mostFrequentCategoryName = statisticsViewModel.EventCategories.Find(x => x.Id == mostFrequentCategoryId)?.CategoryTitle;
+            var mostFrequentCategory = await _context.EventCategories.FindAsync(mostFrequentCategoryId);
+            var mostFrequentCategoryName = mostFrequentCategory.CategoryTitle;
          
             
             ViewData["In_progress"] = inProgressCount.ToString();
@@ -251,7 +252,7 @@ namespace FinancePlanner.Controllers
             data.Labels = dates;
             LineDataset dataset = new LineDataset()
             {
-                Label = "TestChart",
+                Label = "Spending",
                 Data = values,
                 Fill = "false",
                 LineTension = 0.1,
