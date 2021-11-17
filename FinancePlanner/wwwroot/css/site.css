@@ -99,11 +99,13 @@ body {
 .main-wrapper {
     display: flex;
     flex-direction: column;
+    height: 100%
 }
 
 .main-content {
     display: flex;
     flex-direction: row;
+    flex: 90%;
 }
 
 .main-header {
@@ -218,7 +220,7 @@ body {
 }
 
 .nav-item {
-    margin-bottom: 20%;
+    margin-bottom: 15%;
 }
 
 a {
@@ -239,13 +241,14 @@ a {
 }
 
 .wrapper-table {
-    background-color: white;
+    background-color: #e0e7e9;
     color: #344955;
     /*box-shadow: 2px 0px 20px 0px;*/
     border-top-style: solid;
     border-top-width: 1px;
     border-color: rgb(175 175 175);
     border-radius: 12px;
+    padding: 2%;
 }
 
 .container {
@@ -260,7 +263,6 @@ a {
 .main-content .navbar {
     display: flex;
     align-items: flex-start;
-    height: 100%;
 }
 main-content .navbar .menu-bar{
     display: flex;
@@ -314,10 +316,10 @@ main-content .navbar .nav-item{
     padding: 20px;
     min-width: 300px;
     min-height: 200px;
-    background-color: #f5f5f5;
     border-radius: 20px;
     box-sizing:border-box;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
+    /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
     margin: 20px 50px 20px 50px;
     flex-shrink: 0;
 }
@@ -351,18 +353,18 @@ main-content .navbar .nav-item{
     list-style-type: none;
 }
 
-#financial_card {
-    background-color: #f2e291;
-}
-#fitness_card {
-    background-color: #b3e5fc;
-}
-#category_card {
-    background-color: #c5cae9;
-}
-#in_progress_card {
-    background-color: #f0f4c3;
-}
+/*#financial_card {*/
+/*    background-color: #f2e291;*/
+/*}*/
+/*#fitness_card {*/
+/*    background-color: #b3e5fc;*/
+/*}*/
+/*#category_card {*/
+/*    background-color: #c5cae9;*/
+/*}*/
+/*#in_progress_card {*/
+/*    background-color: #f0f4c3;*/
+/*}*/
 
 /* Categories
 -------------------------------------------------- */
@@ -609,10 +611,45 @@ pre {
 
 .wrapper-charts {
     display: flex;
-    justify-content: space-evenly
+    justify-content: space-evenly;
+    flex-direction: column;
 }
 
-.wrapper-charts chart {
+.chart-row {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.chart-row .card{
+    flex:25%;
+    margin: 18px;
+}
+
+.wrapper-charts .chart {
     width: 10%;
     height: 10%;
+    background-color: white;
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 13px;
+}
+
+.chart-header {
+    flex: 10%;
+    margin: 18px;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+}
+
+.chart-content {
+    padding: 37px;
+}
+
+.col-xl-3 {
+    flex:50%;
+}
+
+.col-xl-2 {
+    flex:25%;
 }

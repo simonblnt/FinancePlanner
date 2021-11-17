@@ -38,7 +38,10 @@ namespace FinancePlanner.Controllers
             {
                 Plans = await _context.Plans.Where(plan => plan.UserId == userId).ToListAsync(),
                 Events = await _context.Events.Where(x => x.UserId == userId).ToListAsync(),
-                EventCategories = await _context.EventCategories.ToListAsync()
+                EventCategories = await _context.EventCategories.ToListAsync(),
+                EventStatuses = await _context.EventStatuses.ToListAsync(),
+                PlanStatuses = await _context.PlanStatuses.ToListAsync(),
+                GoalTypes = await _context.GoalTypes.ToListAsync()
             };
             List<int> planIds = new List<int>();
             List<int> categoryIds = new List<int>();
@@ -131,7 +134,57 @@ namespace FinancePlanner.Controllers
             
             ViewBag.NumericalTargetList = numericalTargets;
             ViewBag.NumericalProgressList = numericalProgresses;
+            
+            var inProgressCount = 0;
+            var fitnessCount = 0;
+            var financialCount = 0;
 
+            var inProgressStatusId = statisticsViewModel.PlanStatuses.Find(x => x.Status == "In Progress").Id;
+            var categoriesMap = new Dictionary<int, int>();
+            
+            var fitnessTypeId = statisticsViewModel.GoalTypes.Find(x => x.Name == "Fitness").Id;
+            var financialTypeId = statisticsViewModel.GoalTypes.Find(x => x.Name == "Financial").Id;
+
+
+            foreach (var plan in statisticsViewModel.Plans)
+            {
+                if (plan.PlanStatusId == inProgressStatusId)
+                {
+                    inProgressCount++;
+                }
+            }
+            
+            foreach (var _event in statisticsViewModel.Events)
+            {
+                if (categoriesMap.ContainsKey(_event.EventCategoryId))
+                {
+                    categoriesMap[_event.EventCategoryId]++;
+                }
+                else
+                {
+                    categoriesMap.Add(_event.EventCategoryId, 1);
+                }
+                if (_event.GoalTypeId == fitnessTypeId)
+                {
+                    fitnessCount++;
+                } else if (_event.GoalTypeId == financialTypeId)
+                {
+                    financialCount++;
+                }
+            }
+                
+            var mostFrequentCategoryId = categoriesMap.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            var mostFrequentCategoryName = statisticsViewModel.EventCategories.Find(x => x.Id == mostFrequentCategoryId)?.CategoryTitle;
+         
+            
+            ViewData["In_progress"] = inProgressCount.ToString();
+            ViewData["Most_used_category"] = mostFrequentCategoryName;
+            ViewData["Fitness"] = fitnessCount.ToString();
+            ViewData["Financial"] = financialCount.ToString();
+
+            
+
+            ViewData["Title"] = "Statistics";
             ViewData["spending_date_chart"] = GetSpendingByDateChart(statisticsViewModel);
             ViewData["spending_category_chart"] = GetSpendingByCategoryChart(statisticsViewModel);
             // ViewData["goal_chart"] = GetGoalChart(statisticsViewModel);

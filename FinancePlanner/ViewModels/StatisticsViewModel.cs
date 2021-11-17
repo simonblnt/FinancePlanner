@@ -13,5 +13,8 @@ namespace FinancePlanner.ViewModels
         public Dictionary<string, double?> SpendingByDateMap { get; set; }
         public Dictionary<string, double?> SpendingByCategoryMap { get; set; }
         public List<FinancialEvent> FinancialEvents { get; set; }
+        public List<EventStatus> EventStatuses { get; set; }
+        public List<PlanStatus> PlanStatuses { get; set; }
+        public List<GoalType> GoalTypes { get; set; }
     }
 }

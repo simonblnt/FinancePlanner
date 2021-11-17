@@ -37,49 +37,9 @@ namespace FinancePlanner.Controllers
                 GoalTypes = await _context.GoalTypes.ToListAsync(),
             };
 
-            var inProgressCount = 0;
-            var fitnessCount = 0;
-            var financialCount = 0;
-
-            var inProgressStatusId = eventViewModel.EventStatuses.Find(x => x.Status == "In Progress").Id;
-            var categoriesMap = new Dictionary<int, int>();
             
-            var fitnessTypeId = eventViewModel.GoalTypes.Find(x => x.Name == "Fitness").Id;
-            var financialTypeId = eventViewModel.GoalTypes.Find(x => x.Name == "Financial").Id;
-                
-            foreach (var _event in eventViewModel.Events)
-            {
-                if (categoriesMap.ContainsKey(_event.EventCategoryId))
-                {
-                    categoriesMap[_event.EventCategoryId]++;
-                }
-                else
-                {
-                    categoriesMap.Add(_event.EventCategoryId, 1);
-                }
-                
-                if (_event.EventStatusId == inProgressStatusId)
-                {
-                    inProgressCount++;
-                }
-                
-                if (_event.GoalTypeId == fitnessTypeId)
-                {
-                    fitnessCount++;
-                } else if (_event.GoalTypeId == financialTypeId)
-                {
-                    financialCount++;
-                }
-            }
-                
-            var mostFrequentCategoryId = categoriesMap.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
-            var mostFrequentCategoryName = eventViewModel.EventCategories.Find(x => x.Id == mostFrequentCategoryId)?.CategoryTitle;
-         
+            
             ViewData["Title"] = "Events";
-            ViewData["In_progress"] = inProgressCount.ToString();
-            ViewData["Most_used_category"] = mostFrequentCategoryName;
-            ViewData["Fitness"] = fitnessCount.ToString();
-            ViewData["Finance"] = financialCount.ToString();
             return View(eventViewModel);
         }
         
