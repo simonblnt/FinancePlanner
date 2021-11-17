@@ -12,8 +12,13 @@
 <body>
 <div class="page-wrapper">
     <div class="title-table">
-        <a asp-controller="Planning" asp-action="Create">Create Plan</a>
-        <a asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
+        <div class="title-table-title">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="title-table-action">
+            <a asp-controller="Planning" asp-action="Create">Create Plan</a>
+            <a asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
+        </div>
     </div>
     <div class="wrapper-table-dark">
         <div class="content-table">

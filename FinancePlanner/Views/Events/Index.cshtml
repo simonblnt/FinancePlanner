@@ -14,8 +14,13 @@
 <body>
 <div class="page-wrapper">
     <div class="title-table">
-        <a class="create-button" asp-controller="Events" asp-action="Create">Create Event</a>
-        <a class="create-button" asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
+        <div class="title-table-title">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="title-table-action">
+            <a class="create-button" asp-controller="Events" asp-action="Create">Create Event</a>
+            <a class="create-button" asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
+        </div>
     </div>
     <div class="wrapper-table">
         <div class="content-table">

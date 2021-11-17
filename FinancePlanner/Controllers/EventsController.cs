@@ -31,12 +31,11 @@ namespace FinancePlanner.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             EventViewModel eventViewModel = new EventViewModel
             {
-                Events = await _context.Events.Where(x => x.UserId == userId).ToListAsync(),
+                Events = await _context.Events.OrderByDescending(x => x.StartDate).Where(x => x.UserId == userId).ToListAsync(),
                 EventCategories = await _context.EventCategories.ToListAsync(),
                 EventStatuses = await _context.EventStatuses.ToListAsync(),
                 GoalTypes = await _context.GoalTypes.ToListAsync(),
             };
-
             
             
             ViewData["Title"] = "Events";

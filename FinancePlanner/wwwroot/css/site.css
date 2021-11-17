@@ -228,7 +228,7 @@ a {
 }
 
 .page-wrapper {
-    padding: 3%;
+    padding: 1% 3% 3% 3%;
 }
 
 .btn-link {
@@ -260,6 +260,23 @@ a {
 
 .container .login-bar{
     align-items: flex-end;
+}
+
+.logout-bar {
+    display: flex;
+    align-items: flex-end;
+}
+
+.logout-action button{
+    transition: 0.5s;
+}
+
+.logout-action button:hover {
+    text-shadow: 0px 0px 15px black;
+}
+
+.logout-username {
+    margin-right: 30px;
 }
 
 .main-content .navbar {
@@ -466,11 +483,21 @@ pre {
 
 
 .title-table {
+    
     padding: 2px 15px 2px 15px;
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.title-table.dark {
+    background-color: #354649;
+}
+.title-table.light {
+    background-color: white;
 }
 
     .title-table h1 {
@@ -513,6 +540,10 @@ pre {
     .title-table a:hover i {
         color: var(--secondary-bg-color);
     }
+
+.title-table-title {
+    flex: 80%;   
+}
 
 .content-table {
     padding: 2px 15px 2px 15px;
