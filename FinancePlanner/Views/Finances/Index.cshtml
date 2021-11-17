@@ -1,5 +1,4 @@
 @model FinancePlanner.ViewModels.FinanceViewModel
-
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
     string title = "Finances";
@@ -12,50 +11,62 @@
     <title>Events</title>
 </head>
 <body>
-<div class="wrapper-table">
+<div class="page-wrapper">
     <div class="title-table">
-        <h1>@title</h1>
+        <a class="create-button" asp-controller="Events" asp-action="Create">Create Event</a>
+        <a class="create-button" asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
     </div>
-    <div class="content-table">
-        <table id="events_table" class="events">
-            <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Event
-                </th>
-                <th>
-                    Amount
-                </th>
-                <th>
-                    Date
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var financialEvent in Model.FinancialEvents)
-            {
-                var _event = Model.Events.FirstOrDefault(e => e.FinancialEventId == financialEvent.Id);
+    <div class="wrapper-table">
+        <div class="content-table">
+            <table id="events_table" class="events">
+                <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => financialEvent.Subject)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => _event.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => financialEvent.Amount) €
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => _event.StartDate)
-                    </td>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Event
+                    </th>
+                    <th>
+                        Event Category
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Date
+                    </th>
                 </tr>
-            }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach (var financialEvent in Model.FinancialEvents)
+                {
+                    var _event = Model.Events.FirstOrDefault(e => e.FinancialEventId == financialEvent.Id);
+                    var eventCategoryName = "";
+                    eventCategoryName = Model.EventCategories.FirstOrDefault(m => m.Id == _event.EventCategoryId)?.CategoryTitle;
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => financialEvent.Subject)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => _event.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => eventCategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => financialEvent.Amount) €
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => _event.StartDate)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 </body>
 </html>

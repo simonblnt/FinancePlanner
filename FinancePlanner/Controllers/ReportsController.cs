@@ -31,6 +31,7 @@ namespace FinancePlanner.Controllers
                 Plans = await _context.Plans.Where(x => x.UserId == userId).ToListAsync()
             };
 
+            ViewData["Title"] = "Reports";
             return View(_reportViewModel);
         }
 
@@ -85,6 +86,17 @@ namespace FinancePlanner.Controllers
                 return RedirectToAction("Index");
             }
             return View(newReport);
+        }
+        
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var report = await _context.Reports.FindAsync(id);
+            _context.Reports.Remove(report);
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

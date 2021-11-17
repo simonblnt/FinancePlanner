@@ -28,5 +28,6 @@ namespace FinancePlanner.Database
         public DbSet<Plan> Plans { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<IdentityUser> Users { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
     }
 }

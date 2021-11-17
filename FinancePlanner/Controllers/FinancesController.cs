@@ -25,7 +25,8 @@ namespace FinancePlanner.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             FinanceViewModel financeViewModel = new FinanceViewModel()
             {
-                Events = await _context.Events.Where(x => x.UserId == userId).ToListAsync()
+                Events = await _context.Events.Where(x => x.UserId == userId).ToListAsync(),
+                EventCategories = await _context.EventCategories.ToListAsync()
             };
 
             financeViewModel.FinancialEvents = new List<FinancialEvent>();
@@ -38,6 +39,8 @@ namespace FinancePlanner.Controllers
                     financeViewModel.FinancialEvents.Add(financialEvent);
                 }
             }
+
+            @ViewData["Title"] = "Finances";
             return View(financeViewModel);
         }
     }
