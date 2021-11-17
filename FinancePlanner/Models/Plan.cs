@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FinancePlanner.Models
@@ -7,6 +8,7 @@ namespace FinancePlanner.Models
         [Key] public int Id { get; set; }
         public string UserId { get; set; }
         public string Title { get; set; }
+        public DateTime Deadline { get; set; }
         public int EventCategoryId { get; set; }
         public int PlanStatusId { get; set; }
     }

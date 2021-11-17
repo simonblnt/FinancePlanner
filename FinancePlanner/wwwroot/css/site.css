@@ -241,7 +241,7 @@ a {
 }
 
 .wrapper-table {
-    background-color: #e0e7e9;
+    background-color: white;
     color: #344955;
     /*box-shadow: 2px 0px 20px 0px;*/
     border-top-style: solid;
@@ -250,6 +250,8 @@ a {
     border-radius: 12px;
     padding: 2%;
 }
+
+
 
 .container {
     flex-direction: column;
@@ -300,22 +302,39 @@ main-content .navbar .nav-item{
 .card-container {
     box-sizing:border-box;
     display:flex;
-    flex-wrap:nowrap;
+    flex-wrap:wrap;
     width:100%;
     padding:10px 0;
     border:none;
     overflow:auto;
 }
 
-.card-header {
+.card-title-bar {
+    padding: 1%;
+    margin: 3%;
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #e5e5e5;
 }
+
+.card-title {
+    margin: 0;
+    flex: 75%;
+}
+
+.card-action {
+    display: flex;
+}
+
+
 
 .card {
     padding: 20px;
-    min-width: 300px;
-    min-height: 200px;
+    width: 20%;
+    /*min-width: 300px;*/
+    /*min-height: 200px;*/
     border-radius: 20px;
     box-sizing:border-box;
     background-color: white;
@@ -633,6 +652,17 @@ pre {
     display: flex;
     flex-direction: column;
     border-radius: 13px;
+}
+
+.wrapper-table-dark {
+    background-color: #e0e7e9;
+    color: #344955;
+    /* box-shadow: 2px 0px 20px 0px; */
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: rgb(175 175 175);
+    border-radius: 12px;
+    padding: 2%;
 }
 
 .chart-header {

@@ -10,75 +10,81 @@
     <title>Planning</title>
 </head>
 <body>
-<div class="wrapper-table">
+<div class="page-wrapper">
     <div class="title-table">
-        <h1>@title</h1>
         <a asp-controller="Planning" asp-action="Create">Create Plan</a>
         <a asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
     </div>
-    <div class="content-table">
-        @foreach (var category in Model.EventCategories)
-        {
-            <h3>
-                @Html.DisplayFor(modelItem => category.CategoryTitle)
-            </h3>
-                        
-            <div class="card-container">
-                @{
-                    var plans = Model.Plans.Where(p => p.EventCategoryId == category.Id);
-                }  
-                @foreach (var plan in plans)
-                {
-                                  
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>@Html.DisplayFor(modelItem => plan.Title)</h5>
-                            
-                            <form asp-action="Delete">
-                                <button type="submit" asp-action="Delete" asp-route-id="@plan.Id" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
+    <div class="wrapper-table-dark">
+        <div class="content-table">
+            @foreach (var category in Model.EventCategories)
+            {
+                <h3>
+                    @Html.DisplayFor(modelItem => category.CategoryTitle)
+                </h3>
+
+                <div class="card-container">
+                    @{
+                        var plans = Model.Plans.Where(p => p.EventCategoryId == category.Id);
+                    }
+                    @foreach (var plan in plans)
+                    {
+
+                        <div class="card">
+                            <div class="card-title-bar">
+                                <div class="card-title">
+                                    <h5>@Html.DisplayFor(modelItem => plan.Title)</h5>
+                                </div>
+                                <div class="card-action">
+                                    <a asp-action="Edit" asp-route-id="@plan.Id"><i class="fas fa-pencil-alt"></i></a>
+                                    <form asp-action="Delete">
+                                        <button type="submit" asp-action="Delete" asp-route-id="@plan.Id" onclick="return confirm('Are you sure you want to delete?')" class="link-button"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <ul>
+                                @{
+                                    var goals = Model.Goals.Where(p => p.PlanId == plan.Id);
+                                }
+                                @foreach (var goal in goals)
+                                {
+                                    var goalType = Model.GoalTypes.Find(x => x.Id == goal.GoalTypeId);
+                                    var goalStatus = Model.GoalStatuses.Find(x => x.Id == goal.GoalStatusId);
+                                    if (goalType != null && goalStatus != null)
+                                    {
+                                        if (goalType.Name == "General")
+                                        {
+                                            <li>
+                                                @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goalStatus.Status)
+                                            </li>
+                                        }
+                                        else if (goalType.Name == "Financial")
+                                        {
+                                            <li>
+                                                @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
+                                            </li>
+                                        }
+                                        else if (goalType.Name == "Fitness")
+                                        {
+                                            <li>
+                                                @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => goal.Title)
+                                    }
+                                }
+                            </ul>
                         </div>
-                        <ul>
-                            @{
-                                var goals = Model.Goals.Where(p => p.PlanId == plan.Id);
-                            }
-                            @foreach (var goal in goals)
-                            {
-                                var goalType = Model.GoalTypes.Find(x => x.Id == goal.GoalTypeId);
-                                var goalStatus = Model.GoalStatuses.Find(x => x.Id == goal.GoalStatusId);
-                                if (goalType != null && goalStatus != null)
-                                {
-                                    if (goalType.Name == "General")
-                                    {
-                                        <li>
-                                            @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goalStatus.Status)
-                                        </li>
-                                    }
-                                    else if (goalType.Name == "Financial")
-                                    {
-                                        <li>
-                                            @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
-                                        </li>
-                                    }
-                                    else if (goalType.Name == "Fitness")
-                                    {
-                                        <li>
-                                            @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
-                                        </li>
-                                    }
-                                }
-                                else
-                                {
-                                    @Html.DisplayFor(modelItem => goal.Title)
-                                }
-                            }
-                        </ul>
-                    </div>
-                }
-            </div>
-        }
+                    }
+                </div>
+            }
+        </div>
     </div>
 </div>
+
 </body>
 
 

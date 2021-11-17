@@ -140,6 +140,9 @@ namespace FinancePlanner.Controllers
         }
 
 
-        
+        public IActionResult Edit()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
