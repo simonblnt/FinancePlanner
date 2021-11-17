@@ -400,6 +400,16 @@ main-content .navbar .nav-item{
 
 .card li {
     list-style-type: none;
+    padding: 3px 18px;
+}
+
+.btn-group-wrapper {
+    margin-bottom: 1rem;
+}
+
+#goal-list {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 /*#financial_card {*/
@@ -626,6 +636,13 @@ pre {
 
 .form-group {
     width: 100%;
+}
+
+.form-underlined {
+    padding: 1%;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: rgb(175 175 175);
 }
 
 .form-title {

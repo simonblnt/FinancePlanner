@@ -27,10 +27,13 @@
                 <thead>
                 <tr>
                     <th>
-                        Reports
+                        Title
                     </th>
                     <th>
-                        Plans
+                        Plan
+                    </th>
+                    <th>
+                        Schedule
                     </th>
                     <th>
                         Actions
@@ -41,13 +44,16 @@
                 @foreach (var item in Model.Reports)
                 {
                     var planName = "";
-                    planName = Model.Plans.FirstOrDefault(m => m.Id == item.EventId)?.Title;
+                    planName = Model.Plans.FirstOrDefault(m => m.Id == item.PlantId)?.Title;
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => planName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SendingSchedule)
                         </td>
                         <td>
                             <form asp-action="Delete">

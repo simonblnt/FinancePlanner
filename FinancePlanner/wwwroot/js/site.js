@@ -27,10 +27,12 @@ $(function() {
     
     $("#add_general").click(function(e) {
         e.preventDefault();
-        var i = $(".items").length;
-        var n = '<label class="control-label"> Title </label>' +
-            '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="2"/>' +
-            '<input type="text" class="form-control" name="Goals[' + i + '].Title" />';
+        var i = $(".goal-items .form-group").length;
+        var n = '<div class="form-group form-underlined">' +
+                    '<label class="control-label">Goal Title</label>' +
+                    '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="2"/>' +
+                    '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
+            '</div>';
         $("#goal-list").append(n);
     });
 
@@ -40,27 +42,31 @@ $(function() {
 
     $("#add_financial").click(function(e) {
         e.preventDefault();
-        var i = $(".items").length;
-        var n = '<label class="control-label"> Title </label>' +
+        var i = $(".goal-items .form-group").length;
+        var n = '\'<div class="form-group form-underlined">' +
+            '<label class="control-label"> Goal Title</label>' +
             '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="3"/>' +
             '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
             '<label class="control-label"> Target </label>' +
             '<input type="number" class="form-control" name="Goals[' + i + '].NumericalTarget" />' +
             '<label class="control-label"> Progress </label>' +
-            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />';
+            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />' +
+            '</div>';
         $("#goal-list").append(n);
     });
 
     $("#add_fitness").click(function(e) {
         e.preventDefault();
-        var i = $(".items").length;
-        var n = '<label class="control-label"> Title </label>' +
+        var i = $(".goal-items .form-group").length;
+        var n = '\'<div class="form-group form-underlined">' + 
+            '<label class="control-label">Goal Title</label>' +
             '<input type="hidden" class="form-control" name="Goals[' + i + '].GoalTypeId" value="4"/>' +
             '<input type="text" class="form-control" name="Goals[' + i + '].Title" />' +
             '<label class="control-label"> Target </label>' +
             '<input type="number" class="form-control" name="Goals[' + i + '].NumericalTarget" />' +
             '<label class="control-label"> Progress </label>' +
-            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />';
+            '<input type="number" class="form-control" name="Goals[' + i + '].NumericalProgress" />' + 
+        '</div>';
         $("#goal-list").append(n);
     });
 });
