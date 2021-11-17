@@ -19,11 +19,37 @@ function changePlanningTab(evt, tabName) {
 }
 
 $(function() {
+    $('#btn-create-event').click(function() {
+        var url = $('#createEventModal').data('url');
+
+        $.get(url, function(data) {
+            $('#createEventContainer').html(data);
+
+            $('#createEventModal').modal('show');
+        });
+    });
+    
+    
     $('#event-select-goaltype').change(function(){
         $('.form-conditional').hide();
 
         $('#' + $('#event-select-goaltype option:selected').text()).show();
     });
+    
+    $('#create-event-form').submit( function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    $('#createEventModal').modal('hide');
+                }
+            }
+        })
+    })
+    
+    
     
     $("#add_general").click(function(e) {
         e.preventDefault();

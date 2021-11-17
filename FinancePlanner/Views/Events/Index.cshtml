@@ -18,10 +18,17 @@
             <h1>@ViewData["Title"]</h1>
         </div>
         <div class="title-table-action">
-            <a class="create-button" asp-controller="Events" asp-action="Create">Create Event</a>
-            <a class="create-button" asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a>
+            <button id="btn-create-event" class="btn" data-toggle="modal">Create Event</button>
+            <button id="btn-create-event-category" class="btn" data-toggle="modal" >Create Event Category</button>
+            
+            
+            @* <a class="create-button" asp-controller="Events" asp-action="Create">Create Event</a> *@
+            @* <a class="create-button" asp-controller="Events" asp-action="CreateEventCategory">Create Event Category</a> *@
         </div>
     </div>
+    
+    
+    
     <div class="wrapper-table">
         <div class="content-table">
             <table id="events_table" class="events">
@@ -86,6 +93,11 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<div id="createEventModal" class="modal hide fade in" data-url="@Url.Action("Create")">
+    <div id="createEventContainer">
     </div>
 </div>
 

@@ -10,5 +10,7 @@ namespace FinancePlanner.ViewModels
         public List<EventCategory> EventCategories { get; set; }
         public List<EventStatus> EventStatuses { get; set; }
         public List<GoalType> GoalTypes { get; set; }
+        
+        public Event NewEvent { get; set; }
     }
 }
