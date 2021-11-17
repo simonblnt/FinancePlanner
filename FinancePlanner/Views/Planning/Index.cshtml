@@ -42,41 +42,60 @@
                                     </form>
                                 </div>
                             </div>
-                            <ul>
-                                @{
-                                    var goals = Model.Goals.Where(p => p.PlanId == plan.Id);
-                                }
-                                @foreach (var goal in goals)
-                                {
-                                    var goalType = Model.GoalTypes.Find(x => x.Id == goal.GoalTypeId);
-                                    var goalStatus = Model.GoalStatuses.Find(x => x.Id == goal.GoalStatusId);
-                                    if (goalType != null && goalStatus != null)
+                            <div class="card-content">
+                                <ul>
+                                
+                                    @{
+                                        var goals = Model.Goals.Where(p => p.PlanId == plan.Id);
+                                    }
+                                    @foreach (var goal in goals)
                                     {
-                                        if (goalType.Name == "General")
+                                        var goalType = Model.GoalTypes.Find(x => x.Id == goal.GoalTypeId);
+                                        var goalStatus = Model.GoalStatuses.Find(x => x.Id == goal.GoalStatusId);
+                                        if (goalType != null && goalStatus != null)
                                         {
-                                            <li>
-                                                @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goalStatus.Status)
-                                            </li>
+                                            if (goalType.Name == "General")
+                                            {
+                                                <li class="card-goal">
+                                                    <div class="goal-title">
+                                                        @Html.DisplayFor(modelItem => goal.Title)
+                                                    </div>
+                                                    <div class="goal-status">
+                                                        @Html.DisplayFor(modelItem => goalStatus.Status)
+                                                    </div>
+                                                </li>
+                                            }
+                                            else if (goalType.Name == "Financial")
+                                            {
+                                                <li class="card-goal">
+                                                    <div class="goal-title">
+                                                        @Html.DisplayFor(modelItem => goal.Title)
+                                                    </div>
+                                                    <div class="goal-status">
+                                                        @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
+                                                    </div>
+                                                </li>
+                                            }
+                                            else if (goalType.Name == "Fitness")
+                                            {
+                                                <li class="card-goal">
+                                                    <div class="goal-title">
+                                                        @Html.DisplayFor(modelItem => goal.Title)
+                                                    </div>
+                                                    <div class="goal-status">
+                                                        @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
+                                                    </div>
+                                                </li>
+                                            }
                                         }
-                                        else if (goalType.Name == "Financial")
+                                        else
                                         {
-                                            <li>
-                                                @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
-                                            </li>
-                                        }
-                                        else if (goalType.Name == "Fitness")
-                                        {
-                                            <li>
-                                                @Html.DisplayFor(modelItem => goal.Title): @Html.DisplayFor(modelItem => goal.NumericalProgress) / @Html.DisplayFor(modelItem => goal.NumericalTarget)
-                                            </li>
+                                            @Html.DisplayFor(modelItem => goal.Title)
                                         }
                                     }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => goal.Title)
-                                    }
-                                }
-                            </ul>
+                                
+                                </ul>
+                            </div>
                         </div>
                     }
                 </div>
@@ -86,9 +105,3 @@
 </div>
 
 </body>
-
-
-
-
-
-

@@ -334,7 +334,7 @@ main-content .navbar .nav-item{
     padding: 20px;
     width: 20%;
     /*min-width: 300px;*/
-    /*min-height: 200px;*/
+    min-height: 250px;
     border-radius: 20px;
     box-sizing:border-box;
     background-color: white;
@@ -354,6 +354,19 @@ main-content .navbar .nav-item{
     flex-direction: column;
     text-align: center;
     justify-content: space-evenly;
+}
+
+.card-content {
+    padding:2%;
+}
+
+.goal-title {
+    flex-wrap: wrap;
+}
+
+.card-goal {
+    display: flex;
+    justify-content: space-between;
 }
 
 .card-title{
