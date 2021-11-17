@@ -14,7 +14,12 @@
 <body>
 <div class="page-wrapper">
     <div class="title-table">
-        <a class="create-button" asp-controller="Reports" asp-action="Create">Create Report</a>
+        <div class="title-table-title">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="title-table-action">
+            <a class="create-button" asp-controller="Reports" asp-action="Create">Create Report</a>
+        </div>
     </div>
     <div class="wrapper-table">
         <div class="content-table">
